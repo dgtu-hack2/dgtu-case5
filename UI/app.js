@@ -10,7 +10,7 @@ function setIpAddress() {
 
 var myApp = angular.module('myApp',
     ['ngRoute', 'ui.bootstrap','ui.select', 'myApp.services', 'myApp.confirmationModal',
-        'myApp.infoModal',  'myApp.users' , 'myApp.mainPage'  ]
+        'myApp.infoModal',  'myApp.users' , 'myApp.mainPage', 'myApp.hhModule'  ]
 );
 
 myApp.config(function($routeProvider) {
@@ -27,6 +27,10 @@ myApp.config(function($routeProvider) {
         .when('/users', {
             templateUrl: 'users/users.html',
             controller: 'UsersCtrl',
+        })
+    .when('/hhService', {
+            templateUrl: 'hhService/hh.html',
+            controller: 'HhPageCtrl',
         })
         .when('/main', {
             templateUrl: 'mainPage/mainPage.html',

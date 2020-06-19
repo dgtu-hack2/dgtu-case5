@@ -2,6 +2,8 @@ const express = require("express");
 const hostname = '10.0.0.4'; //'127.0.0.1';
 const port = 8080;
 const app = express();
+const http = require('http');
+const https = require('https');
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -10,7 +12,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
- 
+
 // создаем парсер для данных в формате json
 const jsonParser = express.json();
 
@@ -54,12 +56,12 @@ function searchOneValue(search) {
     };*/
     dbo.collection(dgtuCollection).find(query).toArray(function (err, result) {
         if (err) throw err;
-        
+
         console.log(result);
         return result;
     });
 }
- 
+
 
 function deleteValue() {
     var queryToDelete = {
@@ -102,9 +104,9 @@ function deleteAllFromCollection() {
 /* API */
 /*среднее время очереди личного кабинета*/
 app.get("/api/getDiagram", jsonParser, function (request, response) {
-     dbo.collection(dgtuCollection).find({}).toArray(function (err, results) {
+    dbo.collection(dgtuCollection).find({}).toArray(function (err, results) {
         if (err) throw err;
-         console.log(request.connection.remoteAddress) //определение ip со стороны клиента
+        console.log(request.connection.remoteAddress) //определение ip со стороны клиента
         console.log("SELECT VALUE:", results);
         response.send(results);
     });
@@ -115,12 +117,46 @@ app.post("/api/postURL", jsonParser, function (request, response) {
 });
 
 /*HH REQUESTS*/
-app.post("/api/hhInfo/:text", jsonParser, function (request, response) {
-    const query = req.query;
+/*app.get("/api/hhInfo", jsonParser, function (request, response) {
+    const query = request.query;
     console.log(query)
-    var requestBody = request.body;
-    //https://api.hh.ru/vacancies?text=
-});
+    if (query && query.search) {
+        request.get('https://api.hh.ru/vacancies?text=' + query.search, {
+            json: true
+        }, (err, res, body) => {
+            if (err) {
+                return console.log(err);
+            }
+            console.log(res);
+            console.log('body:', body); // Print the HTML for the Google homepage.
+        });
+        const options = {
+            url: 'https://api.hh.ru/vacancies?text=' + query.search,
+            headers: {
+                'User-Agent': 'Mozilla/5.0'
+            }
+        };
+
+        https.get(options, (resp) => {
+            let data = '';
+            
+            // A chunk of data has been recieved.
+            resp.on('data', (chunk) => {
+                data += chunk;
+            });
+
+            // The whole response has been received. Print out the result.
+            resp.on('end', () => {
+                response.send(resp);
+                console.log(data );
+            });
+
+        }).on("error", (err) => {
+            console.log("Error: " + err.message);
+        });
+
+    }
+});*/
 
 
 /*server start */

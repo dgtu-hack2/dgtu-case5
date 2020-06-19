@@ -251,6 +251,23 @@ myApp.factory('diagramService', function($http, $window, $q, $location, $rootSco
     return service;
 });
 
+
+myApp.factory('hhService', function($http, $window, $q, $location, $rootScope, $sce, infoService) {
+
+    var service = {};
+    
+     service.getVacancies = function(search, page) {
+        var deferred = $q.defer();
+        $http.get('https://api.hh.ru/vacancies?page='+page+'&per_page=100&text='+search).success(function(response){
+            deferred.resolve(response);
+        }).error(function(){
+            deferred.reject('Error in getDiagramm in hhService function');
+        });
+        return deferred.promise;
+    };  
+
+    return service;
+});
 /*
 
 {
