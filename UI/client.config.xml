@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<configuration>
-        <application name="Server">
-            <server url="https://ksu.edu.ru"></server>
-            <server url="http://localhost:8080"></server>
-        </application>
-</configuration>

@@ -17,13 +17,9 @@ const jsonParser = express.json();
 
 /* API */
 /*среднее время очереди личного кабинета*/
-app.get("/api/getDenisovId", jsonParser, function (request, response) {
-    response.send("DENISOV IS ALIVE");
-    var myobj = {
-        name: "VALUE",
-        address: 12
-    };
-    mongo.insertValue(myobj);
+app.get("/api/getDiagram", jsonParser, function (request, response) {
+    var results = mongo.searchAllValues();
+     response.send(results);
 });
 
 app.post("/api/postURL", jsonParser, function (request, response) {

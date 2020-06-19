@@ -234,32 +234,22 @@ services.filter('orderObjectBy', function() {
     };
 });
 
-myApp.factory('denisovService', function($http, $window, $q, $location, $rootScope, $sce, infoService) {
+myApp.factory('diagramService', function($http, $window, $q, $location, $rootScope, $sce, infoService) {
 
     var service = {};
     
-     service.getDenisovId = function() {
+     service.getDiagram = function() {
         var deferred = $q.defer();
-        $http.get(ipAdress + '/api/getDenisovId').success(function(response){
+        $http.get(ipAdress + '/api/getDiagram').success(function(response){
             deferred.resolve(response);
         }).error(function(){
             service.User = null;
-            deferred.reject('Error in getDenisovId in denisovService function');
+            deferred.reject('Error in getDiagramm in diagramService function');
         });
         return deferred.promise;
     };  
 
-    service.Authorize = function(user) {
-        var deferred = $q.defer();
-        $http.post(ipAdress + '/ksu-prkom-rest/UserService/authorization', user)
-            .success(function (autorizedUser) {
-            deferred.resolve(autorizedUser);
-        }).error(function (data) {
-            deferred.reject('Error in authtorize user service function');
-        });
-        return deferred.promise;
-    };
-
+  
     return service;
 });
 
