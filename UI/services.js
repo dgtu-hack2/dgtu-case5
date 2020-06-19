@@ -243,13 +243,11 @@ myApp.factory('diagramService', function($http, $window, $q, $location, $rootSco
         $http.get(ipAdress + '/api/getDiagram').success(function(response){
             deferred.resolve(response);
         }).error(function(){
-            service.User = null;
             deferred.reject('Error in getDiagramm in diagramService function');
         });
         return deferred.promise;
     };  
 
-  
     return service;
 });
 
