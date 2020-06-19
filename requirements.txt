@@ -1,0 +1,3 @@
+googletrans
+pymongo
+pprint

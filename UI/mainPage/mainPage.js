@@ -5,48 +5,49 @@ var mainPage = angular.module('myApp.mainPage', ['ngRoute']);
 mainPage.controller('MainPageCtrl', function ($scope, diagramService) {
     $scope.modelValue = "test";
 
-    var massive = [['Name', 'Value']];
-    var options = {
-        title: "",
-        legend: {
-            position: 'none'
-        },
-    };
-    getDiagram();
+    // var massive = [['Name', 'Value']];
+    // var options = {
+    //     title: "",
+    //     legend: {
+    //         position: 'none'
+    //     },
+    // };
+    // getDiagram();
     drawRadar();
-
-    function getDiagram() {
-        diagramService.getDiagram().then(function (response) {
-            var data = response;
-            //console.log(response)
-            if (data[0].DocTitle[1]) {
-                var doc = data[0].DocTitle[1];
-                var title = doc.DiagTitle;
-                for (var i = 0 ; i< doc.Marks.length; i++) {
-                    var item = [doc.Params[i], doc.Marks[i]];
-                    massive.push(item);
-                }
-                options.title = title;
-                //console.log(massive)
-                google.charts.load("current", {
-                    packages: ["corechart"]
-                });
-                google.charts.setOnLoadCallback(drawGistChart);
-            }
-        });
-    }
-
-
-    function drawGistChart() {
-        var data = google.visualization.arrayToDataTable(massive);
-
-
-        var chart = new google.visualization.LineChart(document.getElementById('gistogram'));
-
-        chart.draw(data, options);
-        //var chart = new google.visualization.Histogram(document.getElementById('gistogram'));
-        //chart.draw(data, options);
-    }
+    // translate("текст");
+    //
+    // function getDiagram() {
+    //     diagramService.getDiagram().then(function (response) {
+    //         var data = response;
+    //         //console.log(response)
+    //         if (data[0].DocTitle[1]) {
+    //             var doc = data[0].DocTitle[1];
+    //             var title = doc.DiagTitle;
+    //             for (var i = 0 ; i< doc.Marks.length; i++) {
+    //                 var item = [doc.Params[i], doc.Marks[i]];
+    //                 massive.push(item);
+    //             }
+    //             options.title = title;
+    //             //console.log(massive)
+    //             google.charts.load("current", {
+    //                 packages: ["corechart"]
+    //             });
+    //             google.charts.setOnLoadCallback(drawGistChart);
+    //         }
+    //     });
+    // }
+    //
+    //
+    // function drawGistChart() {
+    //     var data = google.visualization.arrayToDataTable(massive);
+    //
+    //
+    //     var chart = new google.visualization.LineChart(document.getElementById('gistogram'));
+    //
+    //     chart.draw(data, options);
+    //     //var chart = new google.visualization.Histogram(document.getElementById('gistogram'));
+    //     //chart.draw(data, options);
+    // }
 
     function drawRadar() {
         var ctx = document.getElementById('chart');
@@ -74,6 +75,40 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService) {
             }
         });
     };
+
+    // function translate(text) {
+    //     var trans = new Trans.Trans({
+    //         handles: false,
+    //         worker: 3,
+    //         initPageTimeout: 0,
+    //         responseCb: async response => {
+    //             const url = response.url();
+    //             console.log(url);
+    //             try {
+    //                 const text = await response.text();
+    //                 const status = response.status();
+    //
+    //                 let ret = JSON.parse(text);
+    //                 ret = ret[0]
+    //                 let data = ""
+    //                 for (let i = 0; i < ret.length; i++) {
+    //                     if (ret[i][0]) {
+    //                         data += ret[i][0]
+    //                     }
+    //                 }
+    //                 return Promise.resolve(data);
+    //             } catch (err) {
+    //                 console.error(`Failed getting data from: ${url}`);
+    //                 console.error(err);
+    //             }
+    //         }
+    //     });
+    //
+    //     trans.init().then(res => res < 0 && new Error("[error] init error")).catch(e => console.log(e));
+    //
+    //     var result = trans.trans(text);
+    //     console.log(result);
+    // };
 
 
 
