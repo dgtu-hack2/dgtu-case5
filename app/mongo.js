@@ -2,7 +2,7 @@ const express = require("express");
 var mongo = require('mongodb');
 const app = express();
 
-var MongoClient = require('mongodb').MongoClient
+var MongoClient = require('mongodb').MongoClient;
 
 var mongoDbUrl = "mongodb://localhost:27017/mydb";
 var dbo = null;
