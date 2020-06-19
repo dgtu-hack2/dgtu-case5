@@ -6,7 +6,12 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService) {
     $scope.modelValue = "test";
 
     var massive = [['Name', 'Value']];
-    
+    var options = {
+        title: "",
+        legend: {
+            position: 'none'
+        },
+    };
     getDiagram();
     drawRadar();
 
@@ -17,12 +22,15 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService) {
             if (data[0].DocTitle[1]) {
                 var doc = data[0].DocTitle[1];
                 var title = doc.DiagTitle;
-                for (var i = 0; i < doc.Marks.length; i++) {
-                    var item = [doc.Marks[i], doc.Params[i]];
+                for (var i = 0 ; i< doc.Marks.length; i++) {
+                    var item = [doc.Params[i], doc.Marks[i]];
                     massive.push(item);
                 }
+                options.title = title;
                 //console.log(massive)
-                google.charts.load("current", {packages: ["corechart"]});
+                google.charts.load("current", {
+                    packages: ["corechart"]
+                });
                 google.charts.setOnLoadCallback(drawGistChart);
             }
         });
@@ -32,15 +40,12 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService) {
     function drawGistChart() {
         var data = google.visualization.arrayToDataTable(massive);
 
-        var options = {
-            title: 'Диаграмка',
-            legend: {
-                position: 'none'
-            },
-        };
 
-        var chart = new google.visualization.Histogram(document.getElementById('gistogram'));
+        var chart = new google.visualization.LineChart(document.getElementById('gistogram'));
+
         chart.draw(data, options);
+        //var chart = new google.visualization.Histogram(document.getElementById('gistogram'));
+        //chart.draw(data, options);
     }
 
     function drawRadar() {
