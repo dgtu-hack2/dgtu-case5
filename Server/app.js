@@ -114,6 +114,15 @@ app.post("/api/postURL", jsonParser, function (request, response) {
     var requestBody = request.body;
 });
 
+/*HH REQUESTS*/
+app.post("/api/hhInfo/:text", jsonParser, function (request, response) {
+    const query = req.query;
+    console.log(query)
+    var requestBody = request.body;
+    //https://api.hh.ru/vacancies?text=
+});
+
+
 /*server start */
 app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
