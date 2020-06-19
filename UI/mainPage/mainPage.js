@@ -2,11 +2,18 @@
 
 var mainPage = angular.module('myApp.mainPage', ['ngRoute']);
 
-mainPage.controller('MainPageCtrl', function ($scope, denisovService) {
+mainPage.controller('MainPageCtrl', function ($scope, diagramService) {
     $scope.modelValue = "test";
 
-
-    //    $scope.denisovValue = "{}";
+    getDiagram();
+    
+    function getDiagram(){
+        diagramService.getDiagram().then(function(response){
+            var data = response;
+        });
+    }
+    
+    /*    $scope.denisovValue = "{}";
     google.charts.load("current", {
         packages: ["corechart"]
     });
@@ -200,6 +207,6 @@ mainPage.controller('MainPageCtrl', function ($scope, denisovService) {
             if (cnt == 500) clearInterval(intervalTest);
             chart.draw(data, options);
         }, 100)
-    }
+    }*/
 
 });

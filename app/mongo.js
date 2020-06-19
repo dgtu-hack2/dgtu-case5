@@ -7,9 +7,9 @@ var MongoClient = require('mongodb').MongoClient
 var mongoDbUrl = "mongodb://localhost:27017/mydb";
 var dbo = null;
 
-var dbName = "dgtu";
+var dbName = "test";
 
-var dgtuCollection = "dgtu";
+var dgtuCollection = "testcol";
 
 connectToDataBase();
 
@@ -58,11 +58,11 @@ function searchOneValue(search) {
     dbo.collection(dgtuCollection).find(query).toArray(function (err, result) {
         if (err) throw err;
         console.log(result);
-        db.close();
+        return result;
     });
 }
 
-function searchValue() {
+function searchAllValues() {
     dbo.collection(dgtuCollection).find({}).toArray(function (err, result) {
         if (err) throw err;
         console.log("SELECT VALUE:", result);
