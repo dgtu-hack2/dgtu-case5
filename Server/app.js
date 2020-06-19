@@ -4,6 +4,7 @@ const port = 8080;
 const app = express();
 const http = require('http');
 const https = require('https');
+var PythonShell = require('python-shell');
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -115,6 +116,20 @@ app.get("/api/getDiagram", jsonParser, function (request, response) {
 app.post("/api/postURL", jsonParser, function (request, response) {
     var requestBody = request.body;
 });
+
+var spawn = require("child_process").spawn;
+
+app.get("/api/executePython", jsonParser, function (request, response) {
+    var process = spawn('python', ["translate.py"]);
+    print(dataToSendBack)
+    sys.stdout.flush()
+    pyProg.stdout.on('data', function (data) {
+        process.stdout.on('data', function (data) {
+            console.log(data.toString());
+        });
+    });
+});
+
 
 /*HH REQUESTS*/
 /*app.get("/api/hhInfo", jsonParser, function (request, response) {

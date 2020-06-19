@@ -1,3 +1,4 @@
 googletrans
 pymongo
 pprint
+bson
