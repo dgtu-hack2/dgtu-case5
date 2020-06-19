@@ -13,6 +13,7 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService) {
         },
     };
     getDiagram();
+    drawRadar();
 
     function getDiagram() {
         diagramService.getDiagram().then(function (response) {
@@ -46,6 +47,33 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService) {
         //var chart = new google.visualization.Histogram(document.getElementById('gistogram'));
         //chart.draw(data, options);
     }
+
+    function drawRadar() {
+        var ctx = document.getElementById('chart');
+        var radar = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ["Параметр1", "Параметр2", "Параметр3", "Параметр4", "Параметр5", "Параметр6"],
+                datasets: [{
+                    label: "Label 1",
+                    backgroundColor: "rgba(169, 209, 140, 0.1)",
+                    data: [65, 75, 70, 80, 60, 80]
+                },{
+                    label: "Label 2",
+                    backgroundColor: "rgba(106, 34, 112, 0.1)",
+                    data: [80, 70, 10, 30, 25, 83]
+                },{
+                    label: "Label 3",
+                    backgroundColor: "rgba(34, 69, 112, 0.1)",
+                    data: [21, 72, 50, 12, 64, 34]
+                },{
+                    label: "Label 4",
+                    backgroundColor: "rgba(199, 121, 132, 0.1)",
+                    data: [32, 34, 41, 74, 35, 60]
+                }]
+            }
+        });
+    };
 
 
 
