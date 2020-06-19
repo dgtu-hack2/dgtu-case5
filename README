@@ -5,4 +5,4 @@
 Технологии с помощью которых мы решаем поставленную заадчу: 
 SERVER: Node Js + Express Js
 UI: BOOTSTRAP4 + Angular JS
-BD: MySQL
+BD: Mongo DB
