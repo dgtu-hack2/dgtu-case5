@@ -2,6 +2,7 @@
   "name": "expressapp",
   "version": "1.0.0",
   "dependencies": {
+    "chart.js": "^2.9.3",
     "express": "^4.17.1",
     "mongodb": "^3.5.9",
     "sqlite3": "^4.2.0"

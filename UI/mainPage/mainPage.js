@@ -8,6 +8,7 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService) {
     var massive = [['Name', 'Value']];
     
     getDiagram();
+    drawRadar();
 
     function getDiagram() {
         diagramService.getDiagram().then(function (response) {
@@ -41,6 +42,30 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService) {
         var chart = new google.visualization.Histogram(document.getElementById('gistogram'));
         chart.draw(data, options);
     }
+
+    function drawRadar() {
+        var ctx = document.getElementById('chart');
+        var radar = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Running', 'Swimming', 'Eating', 'Cycling'],
+                datasets: [{
+                    data: [20, 10, 4, 2]
+                }]
+            },
+            options: {
+                scale: {
+                    angleLines: {
+                        display: false
+                    },
+                    ticks: {
+                        suggestedMin: 50,
+                        suggestedMax: 100
+                    }
+                }
+            }
+        });
+    };
 
 
 
