@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ДГТУ Кейс №5</title>
+    <meta name="description" content="ДГТУ">
+    <meta name="keywords" content="dgtu">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- google charts -->   
+    <!--<script type="text/javascript" src="https://www.google.com/jsapi"></script>-->
+   
+
+    <link rel="stylesheet" href="bower_components/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css">
+    <link rel="stylesheet" href="app.css?1.0">
+    <link rel="stylesheet" href="bower_components/angular-ui-select/select.min.css">
+    <link rel="stylesheet" href="bower_components/jquery/1.12.1/jquery-ui.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="font_awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="bower_components/selectize/dist/css/selectize.bootstrap3.css">
+    <link rel="stylesheet" href="bower_components/selectize/dist/css/selectize.css">
+</head>
+<body ng-cloak>
+<div ng-controller="UserCtrl">
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark-transparent">
+        <div class="container-fluid" >
+            <div class="d-contents" ng-include="'navBar.html'"></div>
+        </div>
+    </nav>
+    <div ng-view class="theme-showcase" role="main"></div>
+    <div class="d-contents" ng-include="'footer.html'"></div>
+</div>
+
+<!--Plugins and other components-->
+    <script src="bower_components/charts/charts.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/jquery/jquery.maskedinput.min.js"></script>
+<script src="bower_components/jquery/1.12.1/jquery-ui.js"></script>
+<script src="bower_components/jquery/jquery.blockUI.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="bower_components/bootstrap/js/bootstrap.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
+<script src="bower_components/angular-ui-select/select.min.js"></script>
+
+<!--Application Angular JS files-->
+<script src="app.js?1.0"></script>
+<script src="mainPage/mainPage.js?1.0"></script>
+<script src="services.js?1.0"></script>
+<script src="users/users.js?1.0"></script>
+<!--modal windows-->
+<script src="modalWindows/ConfirmationModal/confirmationModal.js?1.0"></script>
+<script src="modalWindows/InfoModal/infoModal.js?1.0"></script>
+
+</body>
+</html>
+

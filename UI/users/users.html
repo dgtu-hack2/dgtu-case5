@@ -1,0 +1,164 @@
+<div class="container-fluid my-3" >
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="text-left">ПОЛЬЗОВАТЕЛИ</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="list-group">
+                <li class="list-group-item bg-light">
+                    <div class="row">
+                        <div class="col-md-12 text-left">
+                            <span class="pointer text-secondary bold" ng-click="isShowFilters=!isShowFilters">Фильтры <span class="badge badge-secondary badge-pill">{{users.length}}</span></span>
+                        </div>
+                    </div>
+                    <div class="row pt-3" ng-show="!isShowFilters">
+                        <div class="col-sm-12 col-md-3 mb-3 pr-0">
+                            <ui-select id="right"
+                                        class="rounded apply_input"
+                                        ng-change="getUsersByFilters()"
+                                        ng-model="rightSelected.selected"
+                                        theme="bootstrap">
+                                 <ui-select-match class="text-left" >
+                                     <span class="text-nowrap" ng-show="$select.selected.right">{{$select.selected.right}}</span>
+                                     <span class="text-nowrap" ng-show="!$select.selected.right">Все права</span>
+                                 </ui-select-match>
+                                 <ui-select-choices class="text-left "
+                                                    repeat="right in rights | filter: $select.search">
+                                     <span>{{right.right}}</span>
+                                 </ui-select-choices>
+                             </ui-select>
+                        </div>
+                        <div class="col-sm-12 col-md-3 mb-3 pr-0">
+                            <ui-select id="isDeleted"
+                                       ng-change="getUsersByFilters()"
+                                       class="rounded apply_input"
+                                       ng-model="userType.selected"
+                                       theme="bootstrap">
+                                <ui-select-match class="text-left" >
+                                    <span class="text-nowrap" ng-show="$select.selected.type">{{$select.selected.type}}</span>
+                                    <span class="text-nowrap" ng-show="!$select.selected.type">Тип пользователя</span>
+                                </ui-select-match>
+                                <ui-select-choices class="text-left "
+                                                   repeat="type in allTypes | filter: $select.search">
+                                    <span>{{type.type}}</span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="row pt-3" >
+                        <div class="col-sm-12 mb-2">
+                            <input id="userNameFilter" placeholder="Поиск по имени пользователя"  ng-model="userName"
+                                   type="text" class="border rounded form-control-sm my-2 w-100" ng-change="searchByName(userName)">
+                            <!-- <ui-select id="directions"
+                                        class="rounded apply_input"
+                                        ng-model="userSelected.selected"
+                                        theme="bootstrap">
+                                 <ui-select-match class="text-left" >
+                                     <span class="text-nowrap" ng-show="$select.selected.lastName">{{$select.selected.lastName +' '+$select.selected.firstName+(($select.selected.patronymic!="")?' '+$select.selected.patronymic:'')}}</span>
+                                     <span class="text-nowrap" ng-show="!$select.selected.lastName">Выберите пользователя</span>
+                                 </ui-select-match>
+                                 <ui-select-choices class="text-left "
+                                                    repeat="user in usersForFilter | filter: $select.search">
+                                     <span>{{ user.lastName +' '+user.firstName + ((user.patronymic!="")?' '+user.patronymic:'') }}</span>
+                                 </ui-select-choices>
+                             </ui-select>-->
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item p-0 ">
+                    <div class="m-3" ng-if="users.length==0 && isLoading">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Загрузка...</span>
+                        </div>
+                    </div>
+                    <div ng-if="!isLoading">
+                        <div class="p-3" ng-if="users.length==0">
+                            <p class="text-secondary mb-0">Нет пользователей</p>
+                        </div>
+                        <div class="table-responsive" ng-if="users.length > 0">
+
+                            <table class="table w-100">
+                                <thead>
+                                <tr>
+                                    <th class="light-bold auto-width">№</th>
+                                    <th class="light-bold auto-width">Пользователь</th>
+                                    <th class="light-bold auto-width text-nowrap">Дата регистрации</th>
+                                    <th class="light-bold auto-width">Почта</th>
+                                    <th class="light-bold auto-width">Логин</th>
+                                    <th class="light-bold auto-width text-nowrap">День рождения</th>
+                                    <th class="light-bold auto-width">Админ</th>
+                                    <th class="light-bold auto-width">Оператор</th>
+                                    <th class="light-bold auto-width">Секретарь</th>
+                                    <th width="70"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="user in users">
+                                    <td>{{$index+1}}</td>
+                                    <td>
+                                        <a class="href-style" ng-class="{'text-danger':user.isDeleted}" ng-if="!user.isEdit" href="" ng-click="openUserModal(user)">
+                                            {{user.lastName +' '+user.firstName + ((user.patronymic!="")?' '+user.patronymic:'')}}
+                                        </a>
+                                        <div class="d-inline-flex" ng-if="user.isEdit">
+                                            <input placeholder="Фамилия"  ng-model="user.lastName" type="text" class="border rounded form-control-sm mr-2" ng-class="{'ng-invalids':isError && !user.lastName}">
+                                            <input placeholder="Имя"  ng-model="user.firstName" type="text" class="border rounded form-control-sm mr-2" ng-class="{'ng-invalids':isError && !user.firstName}">
+                                            <input placeholder="Отчество"  ng-model="user.patronymic" type="text" class="border rounded form-control-sm">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span>{{user.creationDate | date:'dd.MM.yyyy'}}</span>
+                                    </td>
+                                    <td>
+                                        <span ng-if="!user.isEdit">{{user.email}}</span>
+                                        <input ng-if="user.isEdit" placeholder="Почта"  ng-model="user.email"
+                                               type="text" class="border rounded form-control-sm mr-2">
+                                    </td>
+                                    <td>
+                                        <span>{{user.login}}</span>
+                                    </td>
+                                    <td>
+                                        <span ng-if="!user.isEdit">{{(user.dateOfBirth?user.dateOfBirth:' - ') | date:'dd.MM.yyyy'}}</span>
+                                        <input id="{{'date'+$index}}" ng-if="user.isEdit" placeholder="дд.мм.гггг" ng-model="user.dateOfBirth"
+                                               type="text" class="border rounded form-control-sm width125" ng-class="{'ng-invalids':isError && !user.eventDate}">
+                                    </td>
+                                    <td>
+                                        <label class="containerCheckbox">
+                                            <input ng-disabled="!user.isEdit" ng-model="user.isAdmin"
+                                                   type="checkbox" class="border rounded">
+                                            <span class="checkmark rounded"></span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label class="containerCheckbox">
+                                            <input ng-disabled="!user.isEdit" ng-model="user.isOperator"
+                                                   type="checkbox" class="border rounded">
+                                            <span class="checkmark rounded"></span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label class="containerCheckbox">
+                                            <input ng-disabled="!user.isEdit" ng-model="user.isPkEmployee"
+                                                   type="checkbox" class="border rounded">
+                                            <span class="checkmark rounded"></span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <button class="close" ng-show="!user.isEdit" ng-click="removeUser(user)"><i class="fas fa-times small"></i></button>
+                                        <button class="close" ng-show="!user.isEdit" ng-click="user.isEdit=!user.isEdit;setMasks(user,$index)"><i class="fas fa-pencil-alt small"></i></button>
+                                        <button class="close" ng-show="user.isEdit" ng-click="user.isEdit=!user.isEdit;setOldUser($index)"><i class="fas fa-share small"></i></button>
+                                        <button class="close" ng-show="user.isEdit" ng-click="editUser(user);"><i class="fas fa-check small"></i></button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</div>

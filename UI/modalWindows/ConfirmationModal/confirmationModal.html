@@ -1,0 +1,12 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title">{{confirmationModalTitle}}</h4>
+    </div>
+    <div class="modal-body">
+        <span ng-bind-html="confirmationModalText"></span>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning " type="button" ng-click="ok()">Да</button>
+        <button class="btn btn-outline-secondary" type="button" ng-click="cancel()">Нет</button>
+    </div>
+</div>

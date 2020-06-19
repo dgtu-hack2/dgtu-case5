@@ -1,0 +1,9 @@
+{
+  "name": "expressapp",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^3.5.9",
+    "sqlite3": "^4.2.0"
+  }
+}
