@@ -51,23 +51,26 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService) {
     function drawRadar() {
         var ctx = document.getElementById('chart');
         var radar = new Chart(ctx, {
-            type: 'bar',
+            type: 'radar',
             data: {
-                labels: ['Running', 'Swimming', 'Eating', 'Cycling'],
+                labels: ["Параметр1", "Параметр2", "Параметр3", "Параметр4", "Параметр5", "Параметр6"],
                 datasets: [{
-                    data: [20, 10, 4, 2]
+                    label: "Label 1",
+                    backgroundColor: "rgba(169, 209, 140, 0.1)",
+                    data: [65, 75, 70, 80, 60, 80]
+                },{
+                    label: "Label 2",
+                    backgroundColor: "rgba(106, 34, 112, 0.1)",
+                    data: [80, 70, 10, 30, 25, 83]
+                },{
+                    label: "Label 3",
+                    backgroundColor: "rgba(34, 69, 112, 0.1)",
+                    data: [21, 72, 50, 12, 64, 34]
+                },{
+                    label: "Label 4",
+                    backgroundColor: "rgba(199, 121, 132, 0.1)",
+                    data: [32, 34, 41, 74, 35, 60]
                 }]
-            },
-            options: {
-                scale: {
-                    angleLines: {
-                        display: false
-                    },
-                    ticks: {
-                        suggestedMin: 50,
-                        suggestedMax: 100
-                    }
-                }
             }
         });
     };
