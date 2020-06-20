@@ -146,7 +146,7 @@ app.get("/api/getGraphsFunctions", jsonParser, function (request, response) {
 app.get("/api/executePython", jsonParser, function (req, res) {
     var dataToSend;
     // spawn new child process to call the python script
-    const python = spawn('python', ['../translate.py']);
+    const python = spawn('python', ['../translate.py', req.query.url]);
     // collect data from script
     python.stdout.on('data', function (data) {
         dataToSend = data.toString();
