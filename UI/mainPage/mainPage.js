@@ -43,94 +43,95 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
                 console.log(hhService.params)
             }, 2500)
         });
-
-        console.log("func A");
-
     }
 
-    function percentCompleatedStudentTask() {
+    function programIndicators() {
 
-        console.log("func B")
-    }
+        angular.forEach($scope.programs, function (program) {
 
-    function programCoopetitionCompleated() {
-        var program = $scope.programs['09_03_02_01'];
-        console.log(program)
-        //check modules
-        var moduleGrade = 0;
-        var moduleHasComp = 0;
-        angular.forEach(program.Modules, function (module) {
-            var competitions = module.Competition;
-            programService.getCompetitionList().then(function (response) {
-                var competitionList = response[0].PKs;
-                var competitionsFull = [];
-                //getting competitions
-                for (var i = 0; i < competitionList.length; i++) {
-                    for (var j = 0; j < competitions.length; j++) {
-                        if (competitions[j] == competitionList[i].CodeEng) {
-                            competitionsFull.push(competitionList[i]);
-                        }
-                    }
-
-                }
-                var tasks = module.Tasks;
-
-                var checkListInModule = [];
-                //checking tasks
-                angular.forEach(tasks, function (task) {
-                    angular.forEach(task.Ind, function (indString) {
-                        //unique push
-                        if (checkListInModule.indexOf(indString) === -1) {
-                            checkListInModule.push(indString);
-                        }
-                    });
-                });
-
-                //console.log(checkListInModule)
-
-                angular.forEach(checkListInModule, function (indString) {
-                    angular.forEach(competitionsFull, function (cmp, index) {
-                        indString = indString.substring(indString.indexOf('.'));
-                        try {
-                            if (indString && eval('cmp' + indString)) {
-                                cmp.hasCompetitionItem = true;
+            console.log(program)
+            //check modules
+            var moduleGrade = 0;
+            var moduleHasComp = 0;
+            angular.forEach(program.Modules, function (module) {
+                var competitions = module.Competition;
+                programService.getCompetitionList().then(function (response) {
+                    var competitionList = response[0].PKs;
+                    var competitionsFull = [];
+                    //getting competitions
+                    for (var i = 0; i < competitionList.length; i++) {
+                        for (var j = 0; j < competitions.length; j++) {
+                            if (competitions[j] == competitionList[i].CodeEng) {
+                                competitionsFull.push(competitionList[i]);
                             }
-                        } catch (ex) {
-
                         }
 
+                    }
+                    var tasks = module.Tasks;
 
+                    var checkListInModule = [];
+                    //checking tasks
+                    angular.forEach(tasks, function (task) {
+                        angular.forEach(task.Ind, function (indString) {
+                            //unique push
+                            if (checkListInModule.indexOf(indString) === -1) {
+                                checkListInModule.push(indString);
+                            }
+                        });
+                    });
+
+                    //console.log(checkListInModule)
+
+                    angular.forEach(checkListInModule, function (indString) {
+                        angular.forEach(competitionsFull, function (cmp, index) {
+                            indString = indString.substring(indString.indexOf('.'));
+                            try {
+                                if (indString && eval('cmp' + indString)) {
+                                    cmp.hasCompetitionItem = true;
+                                }
+                            } catch (ex) {
+
+                            }
+
+
+                            //console.log(eval(competitionsFull[index]+"."+indString))
+                        });
+                    });
+                    var currentModuleGrade = 0;
+                    var currentModuleHasComp = 0;
+                    var iter = 0;
+                    //console.log(competitionsFull)
+                    angular.forEach(competitionsFull, function (cmp, index) {
+                        iter++;
+                        if (cmp.hasCompetitionItem) {
+                            currentModuleHasComp++;
+                        }
                         //console.log(eval(competitionsFull[index]+"."+indString))
                     });
-                });
-                var currentModuleGrade = 0;
-                var currentModuleHasComp = 0;
-                var iter = 0;
-                console.log(competitionsFull)
-                angular.forEach(competitionsFull, function (cmp, index) {
-                    iter++;
-                    if (cmp.hasCompetitionItem) {
-                        currentModuleHasComp++;
+                    if (currentModuleHasComp != 0) {
+                        currentModuleGrade = Number((iter / currentModuleHasComp).toFixed(2))
+                        moduleGrade += currentModuleGrade;
+                        moduleHasComp += parseInt((currentModuleHasComp));
+
                     }
-                    //console.log(eval(competitionsFull[index]+"."+indString))
                 });
-                if (currentModuleHasComp != 0) {
-                    currentModuleGrade = Number((iter / currentModuleHasComp).toFixed(2))
-                    moduleGrade += currentModuleGrade;
-                    moduleHasComp += parseInt((currentModuleHasComp));
-
-                }
             });
-        });
-        setTimeout(function () {
-            $scope.moduleGrade = moduleHasComp / moduleGrade;
-            //VALUE
-            console.log($scope.moduleGrade)
-        }, 2000)
+            setTimeout(function () {
+                $scope.moduleGrade = moduleHasComp / moduleGrade;
+                //VALUE
+                console.log($scope.moduleGrade)
+            }, 2000)
 
+            getStudentsCompleated();
+
+        })
 
     }
 
+    function getStudentsCompleated(){
+        
+    }
+    
     $scope.lookProgram = function (program) {
         localStorage.setItem('program', JSON.stringify(program));
         $location.path('program');
