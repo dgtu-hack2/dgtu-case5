@@ -286,7 +286,7 @@ myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, 
             deferred.resolve(service.params)
         } else {
             alert("Bad search value")
-            deferred.reject('Error in getGraphsFunctions in grapthService function');
+            deferred.reject('Error in  function');
         }
         return deferred.promise;
     }
@@ -374,6 +374,7 @@ myApp.factory('programService', function ($http, $window, $q, $location, $rootSc
 
     var service = {};
 
+    
     service.getPrograms = function (search, page) {
         var deferred = $q.defer();
         $http.get(ipAdress + '/api/getPrograms').success(function (response) {
@@ -383,7 +384,17 @@ myApp.factory('programService', function ($http, $window, $q, $location, $rootSc
         });
         return deferred.promise;
     };
-
+    
+    service.getCompetitionList = function () {
+        var deferred = $q.defer();
+        $http.get(ipAdress + '/api/getCompetitionList').success(function (response) {
+            deferred.resolve(response);
+        }).error(function () {
+            deferred.reject('Error in getCompetitionList in diagramService function');
+        });
+        return deferred.promise;
+    };
+    
     return service;
 });
 

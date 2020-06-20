@@ -2,23 +2,24 @@
 
 var mainPage = angular.module('myApp.mainPage', ['ngRoute']);
 
-mainPage.controller('MainPageCtrl', function ($scope, diagramService, programService, 
-                                               $location, grapthService, hhService ) {
+mainPage.controller('MainPageCtrl', function ($scope, diagramService, programService,
+    $location, grapthService, hhService) {
 
     $scope.modelValue = "test";
 
     getPrograms();
-    getGraphsFunctions();
-        function getPrograms() {
-            programService.getPrograms().then(function (response) {
-                var data = response;
 
-                if (data[0].Progs) {
-                    console.log(data[0].Progs)
-                    $scope.programs = data[0].Progs;
-                }
-            });
-        }
+
+    function getPrograms() {
+        programService.getPrograms().then(function (response) {
+            var data = response;
+            if (data[0].Progs) {
+                console.log(data[0].Progs)
+                $scope.programs = data[0].Progs;
+                getGraphsFunctions();
+            }
+        });
+    }
 
     function getGraphsFunctions() {
         grapthService.getGraphsFunctions().then(function (response) {
@@ -26,41 +27,81 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
             if (data[0].FuncGraphs) {
                 console.log(data[0].FuncGraphs)
                 $scope.graphFunctions = data[0].FuncGraphs;
-                angular.forEach($scope.graphFunctions, function(funcItem){
-                    angular.forEach(funcItem.MarksFunc, function(markItem){
-                        console.log(markItem);
-                        if(typeof fn === 'function') {
-                            fn(t.parentNode.id);
-                        }
+                angular.forEach($scope.graphFunctions, function (funcItem) {
+                    angular.forEach(funcItem.MarksFunc, function (markItem) {
                         eval(markItem + '()');
                     })
                 })
             }
         });
     }
-    
-    function functionA(seacrch){
+
+    function hhParams(seacrch) {
         var seacrch = 'Программирование';
-         hhService.getHhParamsByVacancyName(seacrch).then(function(response){
-             setTimeout(function(){
-                 console.log(hhService.params)
-             }, 2500)
-         });
-        
+        hhService.getHhParamsByVacancyName(seacrch).then(function (response) {
+            setTimeout(function () {
+                console.log(hhService.params)
+            }, 2500)
+        });
+
         console.log("func A");
-       
+
     }
-    
-    function functionB(){
-        //у компетенции есть pk-1 
+
+    function percentCompleatedStudentTask() {
+
         console.log("func B")
     }
-    
-    function functionC(){
-        console.log("func C")
+
+    function programCoopetitionCompleated() {
+        var program = $scope.programs['09_03_02_01'];
+        console.log(program)
+        //check modules
+        angular.forEach(program.Modules, function (module) {
+            var competitions = module.Competition;
+            programService.getCompetitionList().then(function (response) {
+                var competitionList = response[0].PKs;
+                var competitionsFull = [];
+                //getting competitions
+                for (var i = 0; i < competitionList.length; i++) {
+                    for (var j = 0; j < competitions.length; j++) {
+                        if (competitions[j] == competitionList[i].CodeEng) {
+                            competitionsFull.push(competitionList[i]);
+                        }
+                    }
+
+                }
+                var tasks = module.Tasks;
+                
+                var checkListInModule = [];
+                //checking tasks
+                angular.forEach(tasks, function (task) {
+                    angular.forEach(task.Ind, function (indString) {
+                        //unique push
+                        if (checkListInModule.indexOf(indString) === -1) {
+                            checkListInModule.push(indString);
+                        }
+                    });
+                });
+                 
+                //console.log(checkListInModule)
+                
+                angular.forEach(checkListInModule, function (indString) {
+                    angular.forEach(competitionsFull, function (cmp, index) {
+                        indString = indString.substring(indString.indexOf('.'));
+                        
+                        if(eval('cmp'+indString)!=""){
+                            cmp.hasCompetitionItem = true;
+                            console.log('true')
+                        }
+                        //console.log(eval(competitionsFull[index]+"."+indString))
+                    });
+                });
+
+                
+            });
+        });
     }
-
-
 
     $scope.lookProgram = function (program) {
         localStorage.setItem('program', JSON.stringify(program));
@@ -71,9 +112,8 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
     $scope.drawCanvas = function (program, index) {
         setTimeout(function () {
             drawRadar(index);
-        }, 1500)
-
-
+        }, 1500);
+        
     }
 
 

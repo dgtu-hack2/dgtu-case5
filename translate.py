@@ -78,4 +78,6 @@ def compare(link):
 
 if __name__ == "__main__":
     translate('168.63.61.94', 27017, '5eed22a7b7da9028b46cfd2b')
+#    print("test")
     print(compare(sys.argv[1]))
+    
