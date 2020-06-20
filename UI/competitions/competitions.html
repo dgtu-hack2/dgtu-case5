@@ -15,17 +15,19 @@
                             <table class="table table-bordered table-hover">
                                 <thead class="bill-header cs" style="background-color: rgb(78,115,223);">
                                     <tr>
-                                        <th id="trs-hd" class="col-lg-1">Название компетенции</th>
-                                        <th id="trs-hd" class="col-lg-2">Переход</th>
+                                        <th id="trs-hd" class="col-lg-1 text-white">Название компетенции</th>
+                                        <th id="trs-hd" class="col-lg-2 text-white">Переход</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="warning no-result">
+                                    <tr ng-if="" class="warning no-result">
                                         <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No Result !!!</td>
                                     </tr>
-                                    <tr>
-                                        <td>01</td>
-                                        <td><button class="btn btn-success" style="margin-left: 5px;" type="submit"><i class="fa fa-check" style="font-size: 15px;"></i></button></td>
+                                    <tr ng-repeat="comp in competitions">
+                                        <td>{{comp.Code}}</td>
+                                         <td>{{comp.Title}}</td>
+                                         <td>{{comp.Source}}</td>
+                                         <td><button ng-click="openCompetition(comp)" class="btn btn-success" style="margin-left: 5px;" type="submit"><i class="fa fa-check" style="font-size: 15px;"></i></button></td>
                                     </tr>
                                 </tbody>
                             </table>

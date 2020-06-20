@@ -59,16 +59,15 @@ myApp.config(function ($routeProvider) {
             templateUrl: 'analyse/analyse.html',
             controller: 'AnalyseCtrl',
         })
-    
-    .when('/user_documentation', {
+        .when('/user_documentation', {
             templateUrl: 'userDocumentation/userDocumentation.html',
             controller: 'UserDocumentationCtrl',
         })
-    .when('/competitions', {
+        .when('/competitions', {
             templateUrl: 'competitions/competitions.html',
             controller: 'CompsCtrl',
         })
-    
+
         .when('/analyseProgram', {
             templateUrl: 'analyseProgram/analyseProgram.html',
             controller: 'AnalyseProgCtrl',

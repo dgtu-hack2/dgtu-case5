@@ -250,6 +250,23 @@ myApp.factory('diagramService', function ($http, $window, $q, $location, $rootSc
     return service;
 });
 
+myApp.factory('competitionsService', function ($http, $window, $q, $location, $rootScope, $sce, infoService) {
+
+    var service = {};
+
+    service.getAllCompetitions = function () {
+        var deferred = $q.defer();
+        $http.get(ipAdress + '/api/getAllCompetitions').success(function (response) {
+            deferred.resolve(response);
+        }).error(function () {
+            deferred.reject('Error in getAllCompetitions in competitionsService function');
+        });
+        return deferred.promise;
+    };
+
+    return service;
+});
+
 
 myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, $sce, infoService) {
 
