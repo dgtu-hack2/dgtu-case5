@@ -25,7 +25,7 @@
                             <li class="nav-item border"><a class="nav-link" role="tab" href="" data-toggle="tab" ng-click="(selectedTab!='middleState') ? selectedTab = 'middleState' : selectedTab = ''" ng-class="{'active bg-warning text-white':selectedTab == 'middleState'}"><strong>Требует внимания</strong></a></li>
                             <li class="nav-item border"><a class="nav-link" href="" role="tab" data-toggle="tab" ng-click="(selectedTab!='badState') ? selectedTab = 'badState' : selectedTab = ''" ng-class="{'active bg-danger text-white':selectedTab == 'badState'}"><strong>Плохое состояние</strong></a></li>
                         </ul>
-                        <div ng-repeat=" program in programs">
+                        <div ng-repeat="(programId, program) in programs">
                             <div class="tab-pane" role="tabpanel">
                                 <div role="tablist" id="accordion-1">
                                     <div class="card">

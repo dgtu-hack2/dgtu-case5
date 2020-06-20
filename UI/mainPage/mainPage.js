@@ -3,12 +3,21 @@
 var mainPage = angular.module('myApp.mainPage', ['ngRoute']);
 
 mainPage.controller('MainPageCtrl', function ($scope, diagramService, programService,
-    $location, grapthService, hhService) {
+    $location, grapthService, userService, hhService) {
 
     $scope.modelValue = "test";
 
     getPrograms();
+    var students = getStudents();
 
+    function getStudents() {
+        userService.getStudents().then(function (response) {
+            var data = response;
+            if (data[0].Students) {
+                students = data[0].Students;
+            }
+        });
+    }
 
     function getPrograms() {
         programService.getPrograms().then(function (response) {
@@ -25,7 +34,6 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
         grapthService.getGraphsFunctions().then(function (response) {
             var data = response;
             if (data[0].FuncGraphs) {
-                console.log(data[0].FuncGraphs)
                 $scope.graphFunctions = data[0].FuncGraphs;
                 //angular.forEach($scope.graphFunctions, function (funcItem) {
                 //    angular.forEach(funcItem.MarksFunc, function (markItem) {
@@ -43,11 +51,9 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
                 if (funcItem.ParamsName[index] == functionForIndicators) {
                     eval(markItem + '()');
                 }
-
             })
         })
-        
-    }
+    };
 
     function hhParams(seacrch) {
         angular.forEach($scope.programs, function (program) {
@@ -63,7 +69,6 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
     }
 
     function programIndicators() {
-
         angular.forEach($scope.programs, function (program) {
             program.params = [];
             //console.log(program)
@@ -151,6 +156,58 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
         
     }
 
+    /**
+     * Проверяем, что студент хотя бы что-то делал по модулю
+     * @param studentModule - модуль, на который записан студент
+     * @returns {boolean}
+     */
+    function getPointsForAllModuleTasksForStudent(studentModule) {
+        var commonPointsForModule = 0;
+        angular.forEach(studentModule.Tasks, function(task) {
+            commonPointsForModule += task.MarkForAnswer;
+        });
+
+        return commonPointsForModule;
+    }
+
+    /**
+     * Высчитываем показатель освоения программы
+     * @param programId - id программы
+     * @param program - объект программы
+     * @returns {number}
+     */
+    $scope.getNumberOfModulesSuccessful = function(programId, program) {
+        var countSuccessModules = 0;
+        var countUsableModules = 0;
+
+        // Пробегаемся по модулям в программе
+        angular.forEach(program.Modules, function (module) {
+            var minSuccessCost = module.MinCost;
+
+            // Пробегаемся по всем студентам, которые учатся по программе
+            angular.forEach(students, function(student) {
+                if (student.ProgramId === programId) {
+
+                    // Пробегаемся по всем модулям студента
+                    angular.forEach(student.Modules, function (studentModule) {
+                        var pointsOverall = getPointsForAllModuleTasksForStudent(studentModule);
+
+                        if (pointsOverall > 0) {
+                            countUsableModules++;
+                        }
+
+                        if (pointsOverall >= minSuccessCost) {
+                            countSuccessModules++;
+                        }
+                    })
+                }
+            });
+        });
+
+        console.log(countSuccessModules / countUsableModules);
+        return countSuccessModules / countUsableModules;
+    };
+
     $scope.lookProgram = function (program) {
         localStorage.setItem('program', JSON.stringify(program));
         $location.path('program');
@@ -161,7 +218,6 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
         setTimeout(function () {
             drawRadar(index);
         }, 1500);
-
     }
 
 
