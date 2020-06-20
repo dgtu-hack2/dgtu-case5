@@ -191,11 +191,25 @@ app.get("/api/getStudents", jsonParser, function (request, response) {
     };
     dbo.collection(dgtuCollection).find(query).toArray(function (err, result) {
         if (err) throw err;
+        
+        //console.log(result);
+        response.send(result);
+    });
+});
+
+app.get("/api/getAllCompetitions", jsonParser, function (request, response) {
+    var query = {
+        item: "PKs"
+    };
+    dbo.collection(dgtuCollection).find(query).toArray(function (err, result) {
+        if (err) throw err;
 
         //console.log(result);
         response.send(result);
     });
 });
+         
+
 
 /*server start */
 app.listen(port, hostname, () => {
