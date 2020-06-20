@@ -1,0 +1,170 @@
+<div class="container-fluid">
+    <div class="d-flex mb-4">
+        <h3 class="text-dark mb-0">Руководство пользователя</h3>
+    </div>
+    <div class="row">
+        <div class="col-lg-7 col-xl-12">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Общая информация</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h5>Наименование программы</h5>
+                            <p>Аналитика по УМУ<br></p>
+                        </div>
+                        <div class="col">
+                            <h5>Команда разработчиков</h5>
+                            <p>Кострома Nova</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Модули</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div role="tablist" id="accordion-1" style="margin-bottom: 20px;">
+                                <div class="card">
+                                    <div class="card-header" role="tab">
+                                        <h5 class="mb-0"><a   href="" ng-click="accordion1=!accordion1">Мониторинг</a></h5>
+                                    </div>
+                                    <div ng-show="accordion1" class="  item-1"  >
+                                        <div class="card-body">
+                                            <div class="row" style="margin-bottom: 20px;">
+                                                <div class="col">
+                                                    <h5><strong>Просмотр состояния программ</strong></h5>
+                                                    <p>Для просмотра состояния программ необходимо выбрать одну из трех кнопок “Хорошее состояние”,“Требует внимания”, “Плохое состояние”.<br></p>
+                                                    <h5><strong>Лист с образовательными программами</strong></h5>
+                                                    <p>Полный список образовательных программ доступен сразу же после входа на страницу. После выбора одной из кнопок состояний можно увидеть образовательные программы<br></p>
+                                                </div>
+                                                <div class="col">
+                                                    <h5><strong>Просмотр состояния определенной программы</strong><br></h5>
+                                                    <p>Чтобы ознакомиться с информацией и получить рекомендации, необходимо нажать на название образовательной программы<br></p>
+                                                    <h5><strong>Подробности об образовательной программе</strong><br></h5>
+                                                    <p>Подробнее об образовательной программе можно узнать нажав на кнопку “Посмотреть программу”<br></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tablist" id="accordion-2" style="margin-bottom: 20px;">
+                                <div class="card">
+                                    <div class="card-header" role="tab">
+                                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-2 .item-1" href="" ng-click="accordion2=!accordion2">Оценки студентов</a></h5>
+                                    </div>
+                                    <div ng-show="accordion2" class=" item-1" role="tabpanel" data-parent="#accordion-2">
+                                        <div class="card-body">
+                                            <div class="row" style="margin-bottom: 20px;">
+                                                <div class="col">
+                                                    <h5><strong>Просмотр списка студентов</strong></h5>
+                                                    <p>Для просмотра списка студентов необходимо перейти на страницу "Оценки", кнопка перехода располагается на навигационной панели в левом углу экрана.<br></p>
+                                                    <h5><strong>Фильтр для направлений</strong></h5>
+                                                    <p>Для выбора определенной образовательной программы необходимо в поле "Образовательная программа..." написать название образовательной программы.<br></p>
+                                                </div>
+                                                <div class="col">
+                                                    <h5><strong>Переход на страницу к опеределнному студенту&nbsp;</strong><br></h5>
+                                                    <p>Чтобы ознакомиться с информацией о модулях определенного студента необходимо на странице "Оценка" нажать на кнопку с иконкой галочки в столбце "Переход".<br></p>
+                                                    <h5><strong>Модуль и задания</strong><br></h5>
+                                                    <p>После перехода по кнопке "Переход" Вы можете ознакомиться с модулями и заданиями определенного студента.<br></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tablist" id="accordion-3" style="margin-bottom: 20px;">
+                                <div class="card">
+                                    <div class="card-header" role="tab">
+                                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-3 .item-1" href=""  ng-click="accordion3=!accordion3">Просмотр компетенций</a></h5>
+                                    </div>
+                                    <div ng-show="accordion3" class="  item-1" role="tabpanel" data-parent="#accordion-3">
+                                        <div class="card-body">
+                                            <div class="row" style="margin-bottom: 20px;">
+                                                <div class="col">
+                                                    <h5><strong>Переход на страницу компетенций</strong></h5>
+                                                    <p>Для осуществления перехода на страницу компетенций необходимо выбрать в левом углу "Компетенции".<br></p>
+                                                    <h5><strong>Список компетенций</strong></h5>
+                                                    <p>Для выбора определенной компетенции необходимо в поле "Компетенции..." написать название необходимой компетенции и выбрать нужную.<br></p>
+                                                </div>
+                                                <div class="col">
+                                                    <h5><strong>Общая информация о компетенциях</strong><br></h5>
+                                                    <p>После перехода на страницу по кнопке, Вы можете ознакомиться с общей информацией о компетенции.<br></p>
+                                                    <h5><strong>Индикатор</strong><br></h5>
+                                                    <p>Ниже общей информации о компетенции, Вы можете ознакомиться с ее индикаторами.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tablist" id="accordion-4" style="margin-bottom: 20px;">
+                                <div class="card">
+                                    <div class="card-header" role="tab">
+                                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-4 .item-1" href=""  ng-click="accordion4=!accordion4">Просмотр образовательных программ</a></h5>
+                                    </div>
+                                    <div ng-show="accordion4" class="  item-1" role="tabpanel" data-parent="#accordion-4">
+                                        <div class="card-body">
+                                            <div class="row" style="margin-bottom: 20px;">
+                                                <div class="col">
+                                                    <h5><strong>Переход на страницу образовательных программ.</strong></h5>
+                                                    <p>Переход на страницу выбора образовательных программ осуществляется по кнопке слева "Программы" или для определенной образовательной программы с помощтю кнопки на странице "Мониторинг"-"Программы"-"Выбор
+                                                        программы"-"Посмотреть программу".</p>
+                                                    <h5><strong>Лист с образовательными программами</strong></h5>
+                                                    <p>Для выбора определенной образовательной программы необходимо в поле "Образовательные программы..." написать название необходимой образовательной программы и выбрать нужную.<br></p>
+                                                </div>
+                                                <div class="col">
+                                                    <h5><strong>Просмотр состояния определенной программы</strong><br></h5>
+                                                    <p>Общие сведения об определенной программе Вы можете получить перейдя на страницу "Программы".<br></p>
+                                                    <h5><strong>Модули образовательных программ</strong><br></h5>
+                                                    <p>Подробнее о модулях Вы можете узнать нажав на блоке "Модули".&nbsp;</p>
+                                                    <h5><strong>Задачи образовательных программ</strong><br></h5>
+                                                    <p>Подробнее о задачах Вы можете узнать нажав на блок "Модули"-"Задачи".&nbsp;</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tablist" id="accordion-5">
+                                <div class="card">
+                                    <div class="card-header" role="tab">
+                                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-5 .item-1" href=""  ng-click="accordion5=!accordion5">Анализ образовательных программ</a></h5>
+                                    </div>
+                                    <div ng-show="accordion5" class="  item-1" role="tabpanel" data-parent="#accordion-5">
+                                        <div class="card-body">
+                                            <div class="row" style="margin-bottom: 20px;">
+                                                <div class="col">
+                                                    <h5><strong>Переход на страницу анализа образовательных программ</strong></h5>
+                                                    <p>Для перехода на страницу анализа образовательных программ необходимо нажать на кнопку "Анализ" слева на навигационной панели.<br></p>
+                                                    <h5><strong>Выбор образовательных программ</strong></h5>
+                                                    <p>Просмотр полного списка образовательных программ можно осуществить после перехоода на страницу "Анализ" Для выбора образовательных программ необходимо нажать на кнопку с иконкой галочки в
+                                                        столбце "Переход к сравнению". Можно найти определенную образовательную программу с помощью фильтра выше таблицы.<br></p>
+                                                </div>
+                                                <div class="col">
+                                                    <h5><strong>Сравнение образовательных программ</strong><br></h5>
+                                                    <p>Необходимо в поле "Введите ссылку" ввести ссылку на сравниваемый результат и нажать на кнопку "Результат".<br></p>
+                                                    <h5><strong>Результат</strong><br></h5>
+                                                    <p>В поле "Результат" выводится результат сравнения с образовательной программой выбранной ранее.<br></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

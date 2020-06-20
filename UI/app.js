@@ -11,7 +11,8 @@ function setIpAddress() {
 
 var myApp = angular.module('myApp', ['ngRoute', 'ui.bootstrap', 'ui.select', 'myApp.services', 'myApp.confirmationModal',
         'myApp.infoModal', 'myApp.users', 'myApp.mainPage', 'myApp.hhModule', 'myApp.program',
-          'myApp.grade', 'myApp.competition', 'myApp.student', 'myApp.analyse', 'myApp.analyseProgram']);
+          'myApp.grade', 'myApp.competition', 'myApp.student', 'myApp.analyse', 'myApp.analyseProgram',
+            'myApp.competitions', 'myApp.userDocumentation']);
 
 myApp.config(function ($routeProvider) {
     /*$httpProvider.defaults.withCredentials = true;*/
@@ -58,6 +59,16 @@ myApp.config(function ($routeProvider) {
             templateUrl: 'analyse/analyse.html',
             controller: 'AnalyseCtrl',
         })
+    
+    .when('/user_documentation', {
+            templateUrl: 'userDocumentation/userDocumentation.html',
+            controller: 'UserDocumentationCtrl',
+        })
+    .when('/competitions', {
+            templateUrl: 'competitions/competitions.html',
+            controller: 'CompsCtrl',
+        })
+    
         .when('/analyseProgram', {
             templateUrl: 'analyseProgram/analyseProgram.html',
             controller: 'AnalyseProgCtrl',
