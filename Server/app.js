@@ -151,7 +151,7 @@ app.get("/api/getGraphsFunctions", jsonParser, function (request, response) {
     });
 });
 
-
+// TODO fix дубль /api/getAllCompetitions
 app.get("/api/getCompetitionList", jsonParser, function (request, response) {
     var pks = request.body;
     var query = {
@@ -197,6 +197,7 @@ app.get("/api/getStudents", jsonParser, function (request, response) {
     });
 });
 
+// TODO fix дубль /api/getCompetitionList
 app.get("/api/getAllCompetitions", jsonParser, function (request, response) {
     var query = {
         item: "PKs"
