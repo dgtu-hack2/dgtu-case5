@@ -14,7 +14,7 @@ function setIpAddress() {
 };
 
 var myApp = angular.module('myApp', ['ngRoute', 'ui.bootstrap', 'ui.select', 'myApp.services', 'myApp.confirmationModal',
-        'myApp.infoModal', 'myApp.users', 'myApp.mainPage', 'myApp.hhModule', 'myApp.program', 'myApp.programs',
+        'myApp.infoModal',  'myApp.mainPage', 'myApp.hhModule', 'myApp.program', 'myApp.programs',
         'myApp.grade', 'myApp.competition', 'myApp.student', 'myApp.analyse', 'myApp.analyseProgram',
         'myApp.competitions', 'myApp.userDocumentation']);
 

@@ -271,7 +271,7 @@ myApp.factory('competitionsService', function ($http, $window, $q, $location, $r
 myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, $sce, infoService) {
 
     var service = {};
-    
+
 
 
     service.getVacancies = function (search, page) {
@@ -290,17 +290,20 @@ myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, 
     service.middleSalary = 0;
     service.countVacancies = 0;
     service.dispersion = 0;
-    
+    service.params = [];
     service.getHhParamsByVacancyName = function (vacancyName) {
         var deferred = $q.defer();
+        service.params = [];
         service.middleSalary = 0;
         service.countVacancies = 0;
         service.dispersion = 0;
         service.searchList = [];
-        service.params = {};
+        
         if (vacancyName) {
             service.getHhVacancions(vacancyName, 0);
-            deferred.resolve(service.params)
+            setTimeout(function(){
+                deferred.resolve(service.params)
+            },1500);
         } else {
             alert("Bad search value")
             deferred.reject('Error in  function');
@@ -308,7 +311,7 @@ myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, 
         return deferred.promise;
     }
 
-    service.calcValues = function() {
+    service.calcValues = function () {
         service.countVacancies = service.searchList.length;
         service.middleSalary = 0;
         service.salaryCount = 0;
@@ -337,36 +340,47 @@ myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, 
         });
 
         service.dispersion = Math.sqrt(sSquare / (service.salaryCount - 1));
+
+
+        var param1 = {
+                key: 'Дисперсия',
+                value: service.dispersion
+            };
+          var param2 =  {
+                key: 'Средняя зарплата',
+                value: service.middleSalary
+            }; 
+              var param3 ={
+                key: 'Количество вакансий',
+                value: service.countVacancies
+            };
+        service.params.push(param1)
+        service.params.push(param2)
+        service.params.push(param3)
         
-        service.params = {
-            dispersion:  service.dispersion,
-            middleSalary: service.middleSalary,
-            countVacancies: service.countVacancies
-        }
-       
-        
+         
     }
     var maxPageValue = 0;
-    service.getHhVacancions = function(search, page) {
+    service.getHhVacancions = function (search, page) {
         service.getVacancies(search, page).then(function (data) {
             if (data && data.items) {
                 service.searchList.push.apply(service.searchList, data.items);
                 var maxPageValue = 3; //data.pages
-                if(data.pages && data.pages > 3){
+                if (data.pages && data.pages > 3) {
                     maxPageValue = 3;
                 }
-                if (maxPageValue - 1 > page) { 
+                if (maxPageValue - 1 > page) {
                     page++;
                     service.getHhVacancions(search, page);
                 } else {
-                   service.calcValues();
+                    service.calcValues();
                 }
             }
         }, function () {
-             service.calcValues();
+            service.calcValues();
         });
     }
-    
+
     return service;
 });
 
@@ -391,7 +405,7 @@ myApp.factory('programService', function ($http, $window, $q, $location, $rootSc
 
     var service = {};
 
-    
+
     service.getPrograms = function (search, page) {
         var deferred = $q.defer();
         $http.get(ipAdress + '/api/getPrograms').success(function (response) {
@@ -401,7 +415,7 @@ myApp.factory('programService', function ($http, $window, $q, $location, $rootSc
         });
         return deferred.promise;
     };
-    
+
     service.getCompetitionList = function () {
         var deferred = $q.defer();
         $http.get(ipAdress + '/api/getCompetitionList').success(function (response) {
@@ -411,19 +425,19 @@ myApp.factory('programService', function ($http, $window, $q, $location, $rootSc
         });
         return deferred.promise;
     };
-    
+
     return service;
 });
 
-myApp.factory('analyseService', function($http, $window, $q, $location, $rootScope, $sce, infoService) {
+myApp.factory('analyseService', function ($http, $window, $q, $location, $rootScope, $sce, infoService) {
 
     var service = {};
 
-    service.compareTo = function(url) {
+    service.compareTo = function (url) {
         var deferred = $q.defer();
-        $http.post(ipAdress + '/api/executePython', url).success(function(response){
+        $http.post(ipAdress + '/api/executePython', url).success(function (response) {
             deferred.resolve(response);
-        }).error(function(){
+        }).error(function () {
             deferred.reject('Error in getDiagramm in diagramService function');
         });
         return deferred.promise;
@@ -432,14 +446,14 @@ myApp.factory('analyseService', function($http, $window, $q, $location, $rootSco
     return service;
 });
 
-myApp.factory('userService', function($http, $window, $q, $location, $rootScope, $sce, infoService) {
+myApp.factory('userService', function ($http, $window, $q, $location, $rootScope, $sce, infoService) {
     var service = {};
 
-    service.getStudents = function(url) {
+    service.getStudents = function (url) {
         var deferred = $q.defer();
-        $http.get(ipAdress + '/api/getStudents').success(function(response){
+        $http.get(ipAdress + '/api/getStudents').success(function (response) {
             deferred.resolve(response);
-        }).error(function(){
+        }).error(function () {
             deferred.reject('Error in getStudents in diagramService function');
         });
         return deferred.promise;

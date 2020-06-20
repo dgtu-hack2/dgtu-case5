@@ -53,13 +53,15 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
         angular.forEach($scope.programs, function (program) {
             program.params = [];
              var seacrch = 'Программирование';
+            
              hhService.getHhParamsByVacancyName(program.HHProg).then(function (response) {
-                 setTimeout(function () {
-                     console.log(hhService.params)
-                     program.params.push(params);
-                 }, 2500)
+                   
+                    program.params.push.apply(program.params, response.params); 
+                   
              });
+             
         });
+        
     }
 
     function programIndicators() {
@@ -135,7 +137,7 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
             });
             setTimeout(function () {
                 $scope.moduleGrade = moduleHasComp / moduleGrade;
-                var value = {'Закрытие компетенций по программе': moduleGrade};
+                var value = { key:'Закрытие компетенций по программе', value: moduleGrade};
                 program.params.push(value);
                 //VALUE
                 console.log($scope.moduleGrade)
@@ -148,7 +150,7 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
     }
 
     function getStudentsCompleated() {
-        
+        return Math.random() * 10;
     }
 
     $scope.lookProgram = function (program) {
