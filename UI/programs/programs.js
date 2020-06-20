@@ -16,6 +16,11 @@ programs.controller('ProgramsCtrl', function ($scope, programService, $location,
 
             if (data[0].Progs) {
                 $scope.programs = data[0].Progs;
+                var programs = [];
+                angular.forEach($scope.programs, function(prog){
+                    programs.push(prog)
+                })
+                $scope.programs = programs;
             }
         });
     }

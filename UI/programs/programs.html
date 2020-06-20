@@ -10,7 +10,8 @@
                 </div>
                 <div class="card-body">
                     <div class="col-md-12 search-table-col" style="margin-top: 5px;">
-                        <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Образовательная программа..."></div><span class="counter pull-right"></span>
+                        <div class="form-group pull-right col-lg-4">
+                            <input type="text" ng-model="searchValue" class="search form-control" placeholder="Образовательная программа..."></div><span class="counter pull-right"></span>
                         <div class="table-responsive table-bordered table table-hover table-bordered results"
                              style="color: rgb(78,115,223);">
                             <table class="table table-bordered table-hover">
@@ -22,7 +23,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="(id, program) in programs">
+                                <tr ng-repeat="(id, program) in programs | filter:searchValue">
                                     <td>{{program.ProgName}}</td>
                                     <td>{{program.Code}}</td>
                                     <td><button ng-click="lookProgram(program)" class="btn btn-success" style="margin-left: 5px;" type="submit"><i class="fa fa-check" style="font-size: 15px;"></i></button></td>

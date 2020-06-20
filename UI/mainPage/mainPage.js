@@ -5,8 +5,6 @@ var mainPage = angular.module('myApp.mainPage', ['ngRoute']);
 mainPage.controller('MainPageCtrl', function ($scope, diagramService, programService,
     $location, grapthService, userService, hhService) {
 
-    $scope.modelValue = "test";
-
     getPrograms();
     var students = getStudents();
 
@@ -60,17 +58,14 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
     function hhParams(seacrch) {
         angular.forEach($scope.programs, function (program) {
             program.params = [];
-            var seacrch = 'Программирование';
-
+            //var seacrch = 'Программирование';
             hhService.getHhParamsByVacancyName(program.HHProg, program).then(function (response) {
                 var params = JSON.parse(JSON.stringify(response))
                 //program.params.push.apply(program.params, params); 
-
             });
-
         });
-
     }
+    
     $scope.setCanvas = function (program, index) {
 //      value / max(key, value)
 //        key / max(key, value)
@@ -87,27 +82,7 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
     }
 
 
-
-    /*setTimeout(function(){
-            angular.forEach($scope.programs, function (program, index) {
-            {
-                    label: "Label 1",
-                    backgroundColor: "rgba(169, 209, 140, 0.1)",
-                    data: [65, 75, 70, 80, 60, 80]
-                }, {
-                    label: "Label 2",
-                    backgroundColor: "rgba(106, 34, 112, 0.1)",
-                    data: [80, 70, 10, 30, 25, 83]
-                }, {
-                    label: "Label 3",
-                    backgroundColor: "rgba(34, 69, 112, 0.1)",
-                    data: [21, 72, 50, 12, 64, 34]
-                }, {
-                    label: "Label 4",
-                    backgroundColor: "rgba(199, 121, 132, 0.1)",
-                    data: [32, 34, 41, 74, 35, 60]
-                }
-        },2500)*/
+ 
 
     function programIndicators() {
         angular.forEach($scope.programs, function (program) {
@@ -169,6 +144,7 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
                         if (cmp.hasCompetitionItem) {
                             currentModuleHasComp++;
                         }
+                        // 1 нужна установка  hasCompetitionItem на конкретные модули компетенций
                         //console.log(eval(competitionsFull[index]+"."+indString))
                     });
                     if (currentModuleHasComp != 0) {
@@ -180,28 +156,36 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
                 });
             });
             setTimeout(function () {
-                $scope.moduleGrade = moduleHasComp / moduleGrade;
-                var value = {
+                console.log(moduleHasComp / moduleGrade)
+                var value1 = {
                     key: 'Закрытие компетенций по программе',
-                    value: moduleGrade
+                    value: (moduleHasComp / moduleGrade)
                 };
-                program.params.push(value);
+                program.params.push(value1);
                 //VALUE
-                console.log($scope.moduleGrade)
-            }, 2000)
+                 
+            }, 1200)
 
             var moduleScore = getStudentsCompleated();
-            var value = {
-                key: 'Доля выполненных задач у студента',
+            var value2 = {
+                key: 'Доля выполненных задач',
                 value: moduleScore
             };
-            program.params.push(value);
-
+            program.params.push(value2);
+            
+            var numberSuccess = getNumberOfModulesSuccessful(program.Code, program);
+            var value3 = {
+                key: 'Количество освоенных модулей',
+                value: numberSuccess
+            };
+            program.params.push(value3);
+            
         })
 
     }
 
     function getStudentsCompleated() {
+        //todo придумать тут что то
         return Math.random() * 10;
     }
 
@@ -225,7 +209,7 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
      * @param program - объект программы
      * @returns {number}
      */
-    $scope.getNumberOfModulesSuccessful = function (programId, program) {
+    function getNumberOfModulesSuccessful(programId, program) {
         var countSuccessModules = 0;
         var countUsableModules = 0;
 
@@ -252,7 +236,7 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
                 }
             });
         });
-
+        if(countSuccessModules==0 || countUsableModules) return 0;
         console.log(countSuccessModules / countUsableModules);
         return countSuccessModules / countUsableModules;
     };
@@ -262,6 +246,17 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
         $location.path('program');
     }
 
+    
+     function drawRadar(index, dataset, label) {
+        var ctx = document.getElementById('chart' + index);
+        var radar = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: label,
+                datasets: dataset
+            }
+        });
+    };
 
     /*$scope.drawCanvas = function (program, index) {
         setTimeout(function () {
@@ -323,16 +318,7 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
     //     //chart.draw(data, options);
     // }
 
-    function drawRadar(index, dataset, label) {
-        var ctx = document.getElementById('chart' + index);
-        var radar = new Chart(ctx, {
-            type: 'radar',
-            data: {
-                labels: label,
-                datasets: dataset
-            }
-        });
-    };
+   
 
     // function translate(text) {
     //     var trans = new Trans.Trans({
