@@ -333,7 +333,7 @@ myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, 
                 if(data.pages){
                     
                 }
-                if (data.pages - 1 > page) {
+                if (data.pages - 1 > page) {analyseService
                     page++;
                     service.getHhVacancions(search, page);
                 } else {
@@ -388,7 +388,7 @@ myApp.factory('analyseService', function($http, $window, $q, $location, $rootSco
 
     service.compareTo = function(url) {
         var deferred = $q.defer();
-        $http.get(ipAdress + '/api/executePython&url=' + url).success(function(response){
+        $http.post(ipAdress + '/api/executePython', url).success(function(response){
             deferred.resolve(response);
         }).error(function(){
             deferred.reject('Error in getDiagramm in diagramService function');

@@ -3,16 +3,24 @@
 var analyseProgram = angular.module('myApp.analyseProgram', ['ngRoute']);
 
 analyseProgram.controller('AnalyseProgCtrl', function ($scope, analyseService, $q) {
-    compare();
-
+    
+    $scope.compare = function(){
+        compare();
+    }
+    
     function compare() {
-        analyseService.compareTo($scope.urlForComparison).then(function (response) {
-            var data = response;
-
-            if (data[0].Progs) {
-                console.log(data[0].Progs)
-                $scope.programs = data[0].Progs;
+        if($scope.urlForComparison){
+            var url = {
+                'url':$scope.urlForComparison
             }
+            analyseService.compareTo(url).then(function (response) {
+            var data = response;
+            
+            console.log(data);
         });
+        } else {
+            alert("bad url")
+        }
+        
     }
 });
