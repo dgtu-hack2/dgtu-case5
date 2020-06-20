@@ -1,6 +1,10 @@
 'use strict';
 var ipAdress;
 var serverUrlIndex = 0;
+
+// FOR LOCAL
+// var serverUrlIndex = 1;
+
 setIpAddress();
 
 function setIpAddress() {
@@ -10,7 +14,7 @@ function setIpAddress() {
 };
 
 var myApp = angular.module('myApp', ['ngRoute', 'ui.bootstrap', 'ui.select', 'myApp.services', 'myApp.confirmationModal',
-        'myApp.infoModal', 'myApp.users', 'myApp.mainPage', 'myApp.hhModule', 'myApp.program',
+        'myApp.infoModal', 'myApp.users', 'myApp.mainPage', 'myApp.hhModule', 'myApp.program', 'myApp.programs',
           'myApp.grade', 'myApp.competition', 'myApp.student', 'myApp.analyse', 'myApp.analyseProgram']);
 
 myApp.config(function ($routeProvider) {
@@ -37,6 +41,10 @@ myApp.config(function ($routeProvider) {
         .when('/main', {
             templateUrl: 'mainPage/mainPage.html',
             controller: 'MainPageCtrl',
+        })
+        .when('/programs', {
+            templateUrl: 'programs/programs.html',
+            controller: 'ProgramsCtrl',
         })
         .when('/program', {
             templateUrl: 'program/program.html',

@@ -12,7 +12,7 @@ analyseProgram.controller('AnalyseProgCtrl', function ($scope, analyseService, $
         if ($scope.urlForComparison){
             var url = {
                 'url': $scope.urlForComparison
-            }
+            };
 
             $scope.isLoading = true;
             analyseService.compareTo(url).then(function (response) {
