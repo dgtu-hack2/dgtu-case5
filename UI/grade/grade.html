@@ -22,13 +22,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="warning no-result">
-                                                    <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No Result !!!</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>01</td>
-                                                    <td>India</td>
-                                                    <td><button class="btn btn-success" style="margin-left: 5px;" type="submit"><i class="fa fa-check" style="font-size: 15px;"></i></button></td>
+                                                <tr ng-repeat="student in students">
+                                                    <td>{{student.Surname + ' ' + student.Name + ' ' + student.MiddleName}}</td>
+                                                    <td>{{getProgramName(student.ProgramId)}}</td>
+                                                    <td><button ng-click="lookStudent(student)" class="btn btn-success" style="margin-left: 5px;" type="submit"><i class="fa fa-check" style="font-size: 15px;"></i></button></td>
                                                 </tr>
                                             </tbody>
                                         </table>

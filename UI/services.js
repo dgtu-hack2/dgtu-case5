@@ -404,6 +404,22 @@ myApp.factory('analyseService', function($http, $window, $q, $location, $rootSco
     return service;
 });
 
+myApp.factory('userService', function($http, $window, $q, $location, $rootScope, $sce, infoService) {
+    var service = {};
+
+    service.getStudents = function(url) {
+        var deferred = $q.defer();
+        $http.get(ipAdress + '/api/getStudents').success(function(response){
+            deferred.resolve(response);
+        }).error(function(){
+            deferred.reject('Error in getStudents in diagramService function');
+        });
+        return deferred.promise;
+    };
+
+    return service;
+});
+
 
 /*
 
