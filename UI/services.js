@@ -268,6 +268,26 @@ myApp.factory('hhService', function($http, $window, $q, $location, $rootScope, $
 
     return service;
 });
+
+
+myApp.factory('programService', function($http, $window, $q, $location, $rootScope, $sce, infoService) {
+
+    var service = {};
+    
+     service.getPrograms = function(search, page) {
+        var deferred = $q.defer();
+        $http.get(ipAdress + '/api/getPrograms').success(function(response){
+            deferred.resolve(response);
+        }).error(function(){
+            deferred.reject('Error in getDiagramm in diagramService function');
+        });
+        return deferred.promise;
+    };  
+
+    return service;
+});
+
+
 /*
 
 {

@@ -35,7 +35,11 @@ def get_html(url):
     
     
 def parse(link):
-    content = BeautifulSoup(get_html(link), "lxml").text
+    clean = lambda item: item.strip()
+    content = str(BeautifulSoup(get_html(link), "lxml").text)
+    filter(clean, content)
+    map(clean, content) 
+    
     pprint(content)
     docs = []
     

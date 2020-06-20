@@ -1,19 +1,14 @@
-<button id="navButton" data-toggle="collapse" class="navbar-toggler" data-target="#menu">
-    <span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon">
-        <i class="la la-navicon"></i></span>
-</button>
-<div class="collapse navbar-collapse " id="menu">
-    <ul class="nav navbar-nav flex-grow-1 justify-content-space-evenly">
-        <li class="nav-item d-none d-xs-block d-md-block" role="presentation" style="display: contents">
-            <a class="navbar-brand" href="#">ДГТУ</a>
-        </li>
-        <!--<li class="nav-item" role="presentation"><a class="nav-link active" href="#"></a></li>-->
-         <li class="nav-item dropdown"><a class="nav-link" href="#/main">Главная</a></li>
-        <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="">Критерии</a>
-            <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#/hhService">HH Service</a><a class="dropdown-item" role="presentation" href="#">Second Item</a><a class="dropdown-item" role="presentation" href="#">Third Item</a></div>
-        </li>
-        <li class="nav-item" role="presentation" ng-if="!user">
-            <a class="nav-link montserrat0 navbarStyle " ng-click="login()" href="#/login">ВХОД</a>
-        </li>
-    </ul>
-</div>
+<nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container-fluid d-flex flex-column p-0">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"></div>
+                    <div class="sidebar-brand-text mx-3"><span>ВУЗ</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="nav navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="index.html"><i class="fas fa-chart-pie"></i><span>Мониторинг</span></a><a class="nav-link active" href="index.html"><i class="fas fa-book-reader"></i><span>Программы</span></a><a class="nav-link active"
+                            href="index.html"><i class="fas fa-newspaper"></i><span>Компетенции</span></a><a class="nav-link active" href="index.html"><i class="fas fa-star"></i><span>Оценки</span></a><a class="nav-link active" href="index.html"><i class="fas fa-thermometer-half"></i><span>Анализ</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>

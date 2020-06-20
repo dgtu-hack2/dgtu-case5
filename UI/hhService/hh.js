@@ -50,7 +50,7 @@ HhPageCtrl.controller('HhPageCtrl', function ($scope, hhService, $q) {
                     sSquare += ((salary - $scope.middleSalary) * (salary - $scope.middleSalary));
                 });
          
-                $scope.dispersion = Math.sqrt(sSquare / (salaryCount-1);
+                $scope.dispersion = Math.sqrt(sSquare / (salaryCount-1));
     }
 
     function getHhVacancions(search, page) {

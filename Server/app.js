@@ -130,7 +130,17 @@ app.get("/api/executePython", jsonParser, function (request, response) {
     });
 });
 
+app.get("/api/getPrograms", jsonParser, function (request, response) {
+     var query = {
+        item: "Progs"
+    };
+    dbo.collection(dgtuCollection).find(query).toArray(function (err, result) {
+        if (err) throw err;
 
+        console.log(result);
+        response.send(result);
+    });
+});
 /*HH REQUESTS*/
 /*app.get("/api/hhInfo", jsonParser, function (request, response) {
     const query = request.query;

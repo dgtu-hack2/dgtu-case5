@@ -4,4 +4,5 @@ pprint
 bson
 nltk
 gensim
-bs4
+beautifulsoup4
+lxml

@@ -1,0 +1,114 @@
+<div class="container-fluid">
+    <div class="d-flex mb-4">
+        <h3 class="text-dark mb-0" style="margin-right: 15px;">{{program.Code}}</h3>
+        <h3 class="text-dark mb-0">{{program.ProgName}} </h3>
+    </div>
+    <div class="row">
+        <div class="col-lg-7 col-xl-12">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Общая информация</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h5>Статус</h5>
+                            <p>{{program.Status}}<br></p>
+                            <h5>Аккредитующая организация</h5>
+                            <p>{{program.Accreditaion}}</p>
+                            <h5>Документ аккредитующей организации</h5>
+                            <p>{{program.AccreditationLink}}</p>
+                        </div>
+                        <div class="col">
+                            <h5>Руководитель программы</h5>
+                            <p>{{program.ProgHead.ProgHeadName}}</p>
+                            <h5>Просчёт с HH.ru</h5>
+                            <p>{{program.HHProg}}</p>
+                            <h5>Аналоги</h5>
+                            <ul>
+                                <li ng-repeat="analog in program.Analogue track by $index">{{analog}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Модули</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div role="tablist" >
+                                <div class="card" ng-repeat="module in program.Modules">
+                                    <div class="card-header" role="tab">
+                                        <h5 class="mb-0"><a data-toggle="collapse" href="" ng-click="module.showModule=!module.showModule">{{module.ModuleName}} </a></h5>
+                                    </div>
+                                    <div class="collapse show item-1" ng-show="module.showModule">
+                                        <div class="card-body">
+                                            <div class="row" style="margin-bottom: 20px;">
+                                                <div class="col">
+                                                    <h5>Рукводитель модуля</h5>
+                                                    <p>{{module.ModuleHead.ModuleHeadName}} </p>
+                                                    <h5>Минимальный балл</h5>
+                                                    <p>{{module.MinCost}}
+                                                    </p>
+                                                    <h5>Публикации</h5>
+                                                    <p>{{module.Publications}}
+                                                    </p>
+                                                </div>
+                                                <div class="col">
+                                                    <h5>Замещающие МУК по курсу</h5>
+                                                    <p>{{module.ModuleHead.MOOKCourse}}</p>
+                                                    <h5>МУК по модулю</h5>
+                                                    <p>{{module.ModuleHead.MOOKExternal}}
+                                                    </p>
+                                                    <h5>Компетенции</h5>
+                                                    <ul>
+                                                        <li ng-repeat="comp in module.Competition track by $index">{{comp }}</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <h5 style="color: rgb(78,115,223);margin-bottom: 20px;">Задачи</h5>
+                                            <div  ng-repeat="task in module.Tasks">
+                                                <div class="card">
+                                                    <div class="card-header" role="tab">
+                                                        <h5 class="mb-0"><a ng-click="task.showTask=!task.showTask" href="">{{task.TaskName}}</a></h5>
+                                                    </div>
+                                                    <div class="collapse show item-1" ng-show="task.showTask" >
+                                                        <div class="card-body">
+                                                            <h5>Описание задачи</h5>
+                                                            <p class="card-text">{{task.TeskDesc}}
+                                                            </p>
+                                                            <h5>Тип задачи</h5>
+                                                            <p class="card-text">
+                                                                {{task.TaskType}}
+                                                            </p>
+                                                            <h5>Балл за задачу</h5>
+                                                            <p class="card-text">{{task.Cost}}</p>
+                                                            <h5>Дней на выполнение</h5>
+                                                            <p class="card-text">{{task.DaysToDone}}</p>
+                                                            <h5>Компонент компетенции</h5>
+                                                            <ul>
+                                                                <li ng-repeat="item in task.Ind">{{item}} </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

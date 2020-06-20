@@ -1,59 +1,147 @@
-<div class="container my-3">
+<div class="container-fluid">
+    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-dark mb-0">Мониторинг</h3>
+    </div>
     <div class="row">
-       <!-- <div class="col-12">
-            <h4 class="text-left">{{denisovValue}}</h4>
-        </div>-->
-         <!--<div id="series_chart_div" style="height: 425px; width:425px"></div>
-        <div id="curve_chart" style="height: 425px; width:425px"></div>-->
-        <div id="gistogram" style="height: 455px; width:425px"></div>
-        <canvas id="chart" style="width: 200px; height: 200px"></canvas>
-        <canvas id="chart" width="200px" height="200px"></canvas>
-        <header class="masthead text-white text-center" style="background: url('assets/img/bg-masthead.jpg')no-repeat center center;background-image: url(&quot;assets/img/changbok-ko-F8t2VGnI47I-unsplash.jpg&quot;);">
-        <div class="overlay" style="opacity: 0.60;"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-9 mx-auto">
-                    <h1 class="mb-5">КРАСИВЫЙ ТЕКСТ ТЕКСТ ТЕКСТ ТЕКСТ ТЕКСТ&nbsp;ТЕКСТ<br></h1>
-                </div>
-                <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-                    <form>
-                        <div class="x-dropdown dropdown">
-                            <div class="text-left x-drop-btn" data-toggle="dropdown" aria-expanded="false"><span>Выберите образовательную программу...</span><i class="material-icons">keyboard_arrow_down</i></div>
-                            <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">xxxxx1</a><a class="dropdown-item" role="presentation" href="#">xxxx2</a><a class="dropdown-item" role="presentation" href="#">xxxxxx3</a></div>
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card shadow border-left-primary py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Earnings (monthly)</span></div>
+                            <div class="text-dark font-weight-bold h5 mb-0"><span>$40,000</span></div>
                         </div>
-                    </form>
+                        <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </header>
-    <div style="margin-top: 40px;height: 269px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6"></div>
-                <div class="col-md-6" style="height: 231px;">
-                    <h1 style="font-size: 25px;height: 46px;">Выбор критерий графика</h1>
-                    <div class="form-check custom-control custom-checkbox mb-3"><input class="form-check-input custom-control-input" type="checkbox" id="customCheck" name="example1" checked=""><label class="form-check-label custom-control-label" for="customCheck">Общий график</label></div>
-                    <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck"><label class="form-check-label" for="formCheck">По 10 критериям</label></div>
-                    <div class="x-dropdown dropdown"><br>
-                        <div class="text-left x-drop-btn" data-toggle="dropdown" aria-expanded="false" style="filter: blur(0px) brightness(94%) grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%);height: 47px;width: 529px;"><span>Выберите критерий...</span><i class="material-icons">keyboard_arrow_down</i></div>
-                        <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">xxxxx1</a><a class="dropdown-item" role="presentation" href="#">xxxx2</a><a class="dropdown-item" role="presentation" href="#">xxxxxx3</a></div>
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card shadow border-left-success py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Earnings (annual)</span></div>
+                            <div class="text-dark font-weight-bold h5 mb-0"><span>$215,000</span></div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card shadow border-left-info py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Tasks</span></div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span>50%</span></div>
+                                </div>
+                                <div class="col">
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar bg-info" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"><span class="sr-only">50%</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card shadow border-left-warning py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Pending Requests</span></div>
+                            <div class="text-dark font-weight-bold h5 mb-0"><span>18</span></div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-comments fa-2x text-gray-300"></i></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <section class="showcase">
-        <div class="container-fluid p-0">
-            <div class="row no-gutters">
-                <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url(&quot;assets/img/janko-ferlic-sfL_QOnmy00-unsplash.jpg&quot;);filter: blur(0px) brightness(84%) sepia(31%);"><span></span></div>
-                <div class="col-lg-6 my-auto order-lg-1 showcase-text">
-                    <h2>Рекомендации</h2>
-                    <p class="lead mb-0">Текст текст текст текст текст текст текст текст текст текст текст текст текст&nbsp;текст текст текст текст&nbsp;текст текст текст текст&nbsp;текст текст текст текст&nbsp;текст текст текст текст текст текст текст текст текст текст текст
-                        текст&nbsp;текст текст текст текст&nbsp;текст текст текст текст&nbsp;текст текст текст текст&nbsp;текст текст текст текст текст текст текст текст текст текст текст текст&nbsp;текст текст текст текст&nbsp;текст текст текст текст&nbsp;текст
-                        текст текст текст<br></p>
+    <div class="row">
+        <div class="col-lg-7 col-xl-12">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Общий мониторинг</h6>
+                </div>
+                <div class="card-body"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="text-primary font-weight-bold m-0">Программы</h6>
+                </div>
+                <div>
+                    <ul class="nav nav-tabs nav-fill">
+                        <li class="nav-item"><a class="nav-link text-center" href="" ng-click="selectedTab = 'goodState'" ng-class="{'active':selectedTab == 'goodState'}" role="tab" data-toggle="tab" style="background-color: rgb(28,200,138);color: rgb(255,255,255);"><strong>Хорошее состояние</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" role="tab" href="" data-toggle="tab" ng-click="selectedTab = 'middleState'" ng-class="{'active':selectedTab == 'middleState'}" style="background-color: #f6c23e;color: rgb(255,255,255);"><strong>Требует внимания</strong></a></li>
+                        <li class="nav-item"><a class="nav-link active" href="" role="tab" data-toggle="tab" ng-click="selectedTab = 'badState'" ng-class="{'active':selectedTab == 'badState'}" style="background-color: #e74a3b;color: rgb(255,255,255);"><strong>Плохое состояние</strong></a></li>
+                    </ul>
+                    <div ng-repeat="program in programs">
+                        <div class="tab-pane" role="tabpanel">
+                            <div role="tablist" id="accordion-1">
+                                <div class="card">
+                                    <div class="card-header" role="tab">
+                                        <h5 class="mb-0"><i class="fa fa-dot-circle-o"></i><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-1" href="" ng-click="showProgramInfo=!showProgramInfo">{{program.Code +' ' + program.ProgName}}</a></h5>
+                                        <h6 style="margin-top: 18px;"><strong>Состояние</strong><span class="float-right">{{}}</span></h6>
+                                        <div class="progress mb-4">
+                                            <div class="progress-bar "  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"><span class="sr-only">100%</span></div> <!--bg-success-->
+                                        </div>
+                                    </div>
+                                    <div ng-show="showProgramInfo"  >
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <p>Диаграмма</p>
+                                                </div>
+                                                <div class="col">
+                                                    <p>Какая-то информация</p>
+                                                    <ul>
+                                                        <li>Item 1</li>
+                                                        <li>Item 2</li>
+                                                        <li>Item 3</li>
+                                                        <li>Item 4</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col d-xl-flex flex-column my-auto align-items-xl-center">
+                                                    <div><button  class="btn btn-primary border rounded" type="button" style="background-color: #4A73AE;width: 230px;max-width: 100%;margin-bottom: 15px;"
+                                                        ng-click="lookProgram(program)">Посмотреть программу</button></div>
+                                                    <!--<div><button class="btn btn-primary border rounded" type="button" style="background-color: #4A73AE;width: 230px;max-width: 100%;">Посмотреть компетенции</button></div>-->
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-xl-2">
+                                                    <h6><strong>Рекомендации</strong></h6>
+                                                </div>
+                                                <div class="col">
+                                                    <ul>
+                                                        <li>Item 1</li>
+                                                        <li>Item 2</li>
+                                                        <li>Item 3</li>
+                                                        <li>Item 4</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
     </div>
 </div>
