@@ -5,3 +5,4 @@ bson
 nltk
 gensim
 bs4
+lxml
