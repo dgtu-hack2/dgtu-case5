@@ -2,3 +2,6 @@ googletrans
 pymongo
 pprint
 bson
+nltk
+gensim
+bs4
