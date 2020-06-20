@@ -32,16 +32,20 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
                             fn(t.parentNode.id);
                         }
                         eval(markItem + '()');
-                        
-                        
                     })
                 })
             }
         });
     }
     
-    function functionA(){
-        console.log("func A")
+    function functionHrParams(){
+        urlForComparison
+        hhService.getHhParamsByVacancyName().then(function(){
+            
+        });
+        
+        console.log("func A");
+        return 1;
     }
     
     function functionB(){

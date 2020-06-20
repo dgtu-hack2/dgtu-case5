@@ -1,14 +1,13 @@
-
 var services = angular.module('myApp.services', ['ngRoute']);
 
 services.factory('infoService', function ($uibModal, $sce) {
     var service = {};
 
-    service.infoFunction = function(text, title) {
+    service.infoFunction = function (text, title) {
         var modalInstance = $uibModal.open({
             templateUrl: 'modalWindows/InfoModal/infoModal.html',
             controller: 'InfoModalWindowCtrl',
-            windowClass:'info-window-modal',
+            windowClass: 'info-window-modal',
             size: 'size',
             resolve: {
                 element: function () {
@@ -21,7 +20,7 @@ services.factory('infoService', function ($uibModal, $sce) {
         });
     };
 
-    service.openConfirmationModal = function(title, text) {
+    service.openConfirmationModal = function (title, text) {
         var props = {
             animation: true,
             backdrop: 'static',
@@ -41,9 +40,9 @@ services.factory('infoService', function ($uibModal, $sce) {
         return $uibModal.open(props);
     };
 
-    service.getComment = function(comment){
-        if(comment){
-            comment =  $sce.trustAsHtml(findAndReplaceLink(comment.replace(/\r\n|\r|\n/g, " <br /> ")));
+    service.getComment = function (comment) {
+        if (comment) {
+            comment = $sce.trustAsHtml(findAndReplaceLink(comment.replace(/\r\n|\r|\n/g, " <br /> ")));
             return comment;
         }
     }
@@ -54,7 +53,7 @@ services.factory('infoService', function ($uibModal, $sce) {
 services.factory('datesService', function () {
     var service = {};
 
-    service.getSmallMonth = function(date) {
+    service.getSmallMonth = function (date) {
         switch (date.getMonth()) {
             case 0:
                 return "янв";
@@ -83,7 +82,7 @@ services.factory('datesService', function () {
         };
     };
 
-    service.getShortDayOfWeekName = function(dayNumber) {
+    service.getShortDayOfWeekName = function (dayNumber) {
         switch (dayNumber) {
             case 0:
                 return "Вскр";
@@ -102,34 +101,34 @@ services.factory('datesService', function () {
         };
     };
 
-    service.parseDateToStringSmall = function(date) {
+    service.parseDateToStringSmall = function (date) {
         var date = new Date(date);
-        var month = date.getMonth()+1;
+        var month = date.getMonth() + 1;
         month < 10 ? month = "0" + month : "";
         var day = date.getDate();
         day < 10 ? day = "0" + day : "";
         return day + '.' + month;
     };
 
-    service.parseDateToStringRussian = function(date) {
+    service.parseDateToStringRussian = function (date) {
         var date = new Date(date);
-        var month = date.getMonth()+1;
+        var month = date.getMonth() + 1;
         month < 10 ? month = "0" + month : "";
         var day = date.getDate();
         day < 10 ? day = "0" + day : "";
         return day + '.' + month + '.' + date.getFullYear();
     };
 
-    service.parseDateToString = function(date) {
+    service.parseDateToString = function (date) {
         var date = new Date(date);
-        var month = date.getMonth()+1;
+        var month = date.getMonth() + 1;
         month < 10 ? month = "0" + month : "";
         var day = date.getDate();
         day < 10 ? day = "0" + day : "";
         return date.getFullYear() + '-' + month + '-' + day;
     };
 
-    service.getTimeStringByDate = function(date) {
+    service.getTimeStringByDate = function (date) {
         if (date) {
             var hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
             var minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
@@ -139,18 +138,18 @@ services.factory('datesService', function () {
         return null;
     };
 
-    service.isEqualDates = function(date1, date2) {
+    service.isEqualDates = function (date1, date2) {
         if (date1, date2) {
             var d1 = new Date(date1);
             var d2 = new Date(date2);
-            if (d1.getFullYear()==d2.getFullYear() && d1.getMonth()==d2.getMonth() && d1.getDate()==d2.getDate()) {
+            if (d1.getFullYear() == d2.getFullYear() && d1.getMonth() == d2.getMonth() && d1.getDate() == d2.getDate()) {
                 return true;
             };
         };
         return false;
     };
 
-    service.isFirstDateBeforeSecondDate = function(date1, date2) {
+    service.isFirstDateBeforeSecondDate = function (date1, date2) {
         if (date1, date2) {
             var d1 = new Date(date1);
             d1.setHours(0);
@@ -162,14 +161,14 @@ services.factory('datesService', function () {
             d2.setMinutes(0);
             d2.setSeconds(0);
             d2.setMilliseconds(0);
-            if (d1.getTime()<d2.getTime()) {
+            if (d1.getTime() < d2.getTime()) {
                 return true;
             };
         };
         return false;
     };
 
-    service.getDateWithoutTime = function(date) {
+    service.getDateWithoutTime = function (date) {
         var d = new Date(date);
         d.setHours(0);
         d.setMinutes(0);
@@ -210,13 +209,13 @@ services.factory('datesService', function () {
     return service;
 });
 
-services.filter('orderObjectBy', function() {
-    return function(items, field, reverse) {
+services.filter('orderObjectBy', function () {
+    return function (items, field, reverse) {
         var filtered = [];
         var nullObjects = [];
 
-        angular.forEach(items, function(item) {
-            if(item[field]) filtered.push(item);
+        angular.forEach(items, function (item) {
+            if (item[field]) filtered.push(item);
             else nullObjects.push(item);
         });
 
@@ -224,9 +223,9 @@ services.filter('orderObjectBy', function() {
             return (a[field] > b[field] ? 1 : -1);
         });
 
-        if(reverse) filtered.reverse();
+        if (reverse) filtered.reverse();
 
-        angular.forEach(nullObjects, function(item) {
+        angular.forEach(nullObjects, function (item) {
             filtered.push(item);
         });
 
@@ -234,71 +233,150 @@ services.filter('orderObjectBy', function() {
     };
 });
 
-myApp.factory('diagramService', function($http, $window, $q, $location, $rootScope, $sce, infoService) {
+myApp.factory('diagramService', function ($http, $window, $q, $location, $rootScope, $sce, infoService) {
 
     var service = {};
-    
-     service.getDiagram = function() {
+
+    service.getDiagram = function () {
         var deferred = $q.defer();
-        $http.get(ipAdress + '/api/getDiagram').success(function(response){
+        $http.get(ipAdress + '/api/getDiagram').success(function (response) {
             deferred.resolve(response);
-        }).error(function(){
+        }).error(function () {
             deferred.reject('Error in getDiagramm in diagramService function');
         });
         return deferred.promise;
-    };  
+    };
 
     return service;
 });
 
 
-myApp.factory('hhService', function($http, $window, $q, $location, $rootScope, $sce, infoService) {
+myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, $sce, infoService) {
 
     var service = {};
-    
-     service.getVacancies = function(search, page) {
+
+
+
+    service.getVacancies = function (search, page) {
         var deferred = $q.defer();
-        $http.get('https://api.hh.ru/vacancies?page='+page+'&per_page=100&text='+search).success(function(response){
+        $http.get('https://api.hh.ru/vacancies?page=' + page + '&per_page=100&text=' + search).success(function (response) {
             deferred.resolve(response);
-        }).error(function(){
+        }).error(function () {
             deferred.reject('Error in getDiagramm in hhService function');
         });
         return deferred.promise;
-    };  
+    };
 
+
+    service.hhSearch = "";
+    service.searchList = [];
+    service.middleSalary = 0;
+    service.countVacancies = 0;
+    service.dispersion = 0;
+
+    service.getHhDiagram = function () {
+        
+    }
+    
+    service.getHhParamsByVacancyName = function (vacancyName) {
+        service.middleSalary = 0;
+        service.countVacancies = 0;
+        service.dispersion = 0;
+        service.searchList = [];
+        if (service.hhSearch) {
+            service.getHhVacancions(vacancyName, 0);
+        } else {
+            alert("Bad search value")
+        }
+    }
+
+    service.calcValues = function() {
+        service.countVacancies = service.searchList.length;
+        service.middleSalary = 0;
+        service.salaryCount = 0;
+        service.salaryes = [];
+        angular.forEach(service.searchList, function (item) {
+            if (item.salary) {
+                if (item.salary.from && item.salary.to) {
+                    service.salaryCount++;
+                    var salary = (item.salary.to - item.salary.from) / 2;
+                    service.middleSalary += salary;
+                    service.salaryes.push(salary)
+                } else {
+                    if (item.salary.from && !item.salary.to) {
+                        service.salaryCount++;
+                        service.middleSalary += item.salary.from;
+                        salaryes.push(item.salary.from);
+                    }
+                }
+            }
+        });
+
+        service.middleSalary = service.middleSalary / service.salaryCount;
+        var sSquare = 0;
+        angular.forEach(salaryes, function (salary) {
+            sSquare += ((salary - service.middleSalary) * (salary - service.middleSalary));
+        });
+
+        service.dispersion = Math.sqrt(sSquare / (salaryCount - 1));
+        
+        var params = {
+            dispersion:  service.dispersion,
+            middleSalary: service.middleSalary,
+            countVacancies: service.countVacancies
+        }
+    }
+
+    service.getHhVacancions = function(search, page) {
+
+        hhService.getVacancies(search, page).then(function (data) {
+            if (data && data.items) {
+                service.searchList.push.apply(service.searchList, data.items);
+                if (data.pages - 1 > page) {
+                    page++;
+                    service.getHhVacancions(search, page);
+                } else {
+                    service.calcValues();
+                }
+            }
+        }, function () {
+            service.calcValues();
+        });
+    }
+    
     return service;
 });
 
-myApp.factory('grapthService', function($http, $window, $q, $location, $rootScope, $sce, infoService) {
+myApp.factory('grapthService', function ($http, $window, $q, $location, $rootScope, $sce, infoService) {
 
     var service = {};
-    
-     service.getGraphsFunctions = function(search, page) {
+
+    service.getGraphsFunctions = function (search, page) {
         var deferred = $q.defer();
-        $http.get(ipAdress + '/api/getGraphsFunctions').success(function(response){
+        $http.get(ipAdress + '/api/getGraphsFunctions').success(function (response) {
             deferred.resolve(response);
-        }).error(function(){
+        }).error(function () {
             deferred.reject('Error in getGraphsFunctions in grapthService function');
         });
         return deferred.promise;
-    };  
+    };
 
     return service;
 });
 
-myApp.factory('programService', function($http, $window, $q, $location, $rootScope, $sce, infoService) {
+myApp.factory('programService', function ($http, $window, $q, $location, $rootScope, $sce, infoService) {
 
     var service = {};
-    
-     service.getPrograms = function(search, page) {
+
+    service.getPrograms = function (search, page) {
         var deferred = $q.defer();
-        $http.get(ipAdress + '/api/getPrograms').success(function(response){
+        $http.get(ipAdress + '/api/getPrograms').success(function (response) {
             deferred.resolve(response);
-        }).error(function(){
+        }).error(function () {
             deferred.reject('Error in getDiagramm in diagramService function');
         });
         return deferred.promise;
-    };  
+    };
 
     return service;
 });
@@ -354,7 +432,9 @@ function findAndReplaceLink(inputText) {
     }
 
     function se(html) {
-        return ce('div', {innerHTML: html}).firstChild;
+        return ce('div', {
+            innerHTML: html
+        }).firstChild;
     }
 
     function ce(tagName, attr, style) {
@@ -382,12 +462,11 @@ function findAndReplaceLink(inputText) {
                     elem.style.cssText = elem.style.cssText.replace(/filter\s*:[^;]*/gi, '');
                 }
                 elem.style.zoom = 1;
-            }
-            ;
+            };
             elem.style.opacity = value;
         } else {
             try {
-                var isN = typeof(value) == 'number';
+                var isN = typeof (value) == 'number';
                 if (isN && (/height|width/i).test(name)) value = Math.abs(value);
                 elem.style[name] = isN && !(/z-?index|font-?weight|opacity|zoom|line-?height/i).test(name) ? value + 'px' : value;
             } catch (e) {
@@ -395,8 +474,14 @@ function findAndReplaceLink(inputText) {
             }
         }
     }
+
     function extend() {
-        var a = arguments, target = a[0] || {}, i = 1, l = a.length, deep = false, options;
+        var a = arguments,
+            target = a[0] || {},
+            i = 1,
+            l = a.length,
+            deep = false,
+            options;
 
         if (typeof target === 'boolean') {
             deep = target;
@@ -409,7 +494,8 @@ function findAndReplaceLink(inputText) {
         for (; i < l; ++i) {
             if ((options = a[i]) != null) {
                 for (var name in options) {
-                    var src = target[name], copy = options[name];
+                    var src = target[name],
+                        copy = options[name];
 
                     if (target === copy) continue;
 
@@ -445,15 +531,15 @@ function findAndReplaceLink(inputText) {
             }
             try {
                 full = decodeURIComponent(full);
-            } catch (e) {
-            }
+            } catch (e) {}
             if (full.length > 55) {
                 full = full.substr(0, 53) + '..';
             }
             full = clean(full).replace(/&amp;/g, '&');
 
             url = replaceEntities(url).replace(/([^a-zA-Z0-9#%;:_\-.\/?&=\[\]])/g, encodeURIComponent);
-            var tryUrl = url, hashPos = url.indexOf('#/');
+            var tryUrl = url,
+                hashPos = url.indexOf('#/');
             if (hashPos >= 0) {
                 tryUrl = url.substr(hashPos + 1);
             } else {

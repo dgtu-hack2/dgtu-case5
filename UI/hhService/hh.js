@@ -21,7 +21,7 @@ HhPageCtrl.controller('HhPageCtrl', function ($scope, hhService, $q) {
     }
 
     function calcValues(){
-        console.log($scope.searchList)
+         
                 $scope.countVacancies = $scope.searchList.length;
                 var middleSalary = 0;
                 var salaryCount = 0;
