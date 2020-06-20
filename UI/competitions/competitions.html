@@ -1,135 +1,39 @@
 <div class="container-fluid">
     <div class="d-flex mb-4">
-        <h3 class="text-dark mb-0" style="margin-right: 15px;">{{competition.Code}}</h3>
-    </div>
-    <div class="row">
-        <div class="col-lg-7 col-xl-12">
-            <div class="card shadow mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="text-primary font-weight-bold m-0">Общая информация</h6>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <h5>Описание</h5>
-                            <p>{{competition.Title}}</p>
-                            <hr>
-                            <h5>Развернутое описание</h5>
-                            <p>{{competition.Desc}}</p>
-                            <hr>
-                            <h5>Статус</h5>
-                            <p>{{competition.Status}}</p>
-                            <hr>
-                            <h5>Тип</h5>
-                            <p>{{competition.Type}}</p>
-                            <hr>
-                            <h5>Источник</h5>
-                            <p>{{competition.Source}}</p>
-                            <hr>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <h3 class="text-dark mb-0"><strong>Список компетенций</strong></h3>
     </div>
     <div class="row">
         <div class="col mb-4">
             <div class="card shadow mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="text-primary font-weight-bold m-0">Индикаторы</h6>
+                    <h6 class="text-primary font-weight-bold m-0">Компетенции</h6>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <div role="tablist" id="accordion-1">
-                                <div class="card">
-                                    <div class="card-header" role="tab">
-                                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-1 .item-1" href="" ng-click="showIndicator1=!showIndicator1">Индикатор №1</a></h5>
-                                    </div>
-                                    <div ng-show="showIndicator1" class="  show item-1" role="tabpanel" data-parent="#accordion-1">
-                                        <div class="card-body">
-                                            <h5>Описание</h5>
-                                            <p class="card-text">{{competition.Ind1.Title}}</p>
-                                            <hr>
-                                            <h5>Трудовые функции</h5>
-                                            <p class="card-text" style="margin-bottom: 40px;">{{competition.Ind1.Desc}}</p>
-                                            <hr>
-                                            <h5>Знания</h5>
-                                            <ul>
-                                                <li ng-repeat="znan in competition.Ind1.Znaniya">{{znan}}<br></li>
-                                            </ul>
-                                            <hr>
-                                            <h5>Умения</h5>
-                                            <ul>
-                                                <li ng-repeat="umen in competition.Ind1.Umeniya">{{umen}}</li>
-                                            </ul>
-                                            <hr>
-                                            <h5>Действия</h5>
-                                            <ul>
-                                                <li ng-repeat="deis in competition.Ind1.Deistviya">{{deis}}</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header" role="tab">
-                                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2" href="" ng-click="showIndicator2=!showIndicator2">Индикатор №2</a></h5>
-                                    </div>
-                                    <div ng-show="showIndicator2" class="  show item-1" role="tabpanel" data-parent="#accordion-1">
-                                        <div class="card-body">
-                                            <h5>Описание</h5>
-                                            <p class="card-text">{{competition.Ind2.Title}}</p>
-                                            <hr>
-                                            <h5>Трудовые функции</h5>
-                                            <p class="card-text" style="margin-bottom: 40px;">{{competition.Ind2.Desc}}</p>
-                                            <hr>
-                                            <h5>Знания</h5>
-                                            <ul>
-                                                <li ng-repeat="znan in competition.Ind2.Znaniya">{{znan}}<br></li>
-                                            </ul>
-                                            <hr>
-                                            <h5>Умения</h5>
-                                            <ul>
-                                                <li ng-repeat="umen in competition.Ind2.Umeniya">{{umen}}</li>
-                                            </ul>
-                                            <hr>
-                                            <h5>Действия</h5>
-                                            <ul>
-                                                <li ng-repeat="deis in competition.Ind2.Deistviya">{{deis}}</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card" >
-                                    <div class="card-header" role="tab">
-                                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-3" href="" ng-click="showIndicator3=!showIndicator3">Индикатор №3</a></h5>
-                                    </div>
-                                    <div ng-show="showIndicator3" class="show item-1" role="tabpanel" dat >
-                                        <div class="card-body">
-                                            <h5>Описание</h5>
-                                            <p class="card-text">{{competition.Ind3.Title}}</p>
-                                            <hr>
-                                            <h5>Трудовые функции</h5>
-                                            <p class="card-text" style="margin-bottom: 40px;">{{competition.Ind3.Desc}}</p>
-                                            <hr>
-                                            <h5>Знания</h5>
-                                            <ul>
-                                                <li ng-repeat="znan in competition.Ind3.Znaniya">{{znan}}<br></li>
-                                            </ul>
-                                            <hr>
-                                            <h5>Умения</h5>
-                                            <ul>
-                                                <li ng-repeat="umen in competition.Ind3.Umeniya">{{umen}}</li>
-                                            </ul>
-                                            <hr>
-                                            <h5>Действия</h5>
-                                            <ul>
-                                                <li ng-repeat="deis in competition.Ind3.Deistviya">{{deis}}</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="col-md-12 search-table-col" style="margin-top: 5px;">
+                        <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Компетенция..."></div><span class="counter pull-right"></span>
+                        <div class="table-responsive table-bordered table table-hover table-bordered results" style="color: rgb(78,115,223);">
+                            <table class="table table-bordered table-hover">
+                                <thead class="bill-header cs" style="background-color: rgb(78,115,223);">
+                                    <tr>
+                                        <th id="trs-hd" class="col-lg-2 text-white">Код</th>
+                                        <th id="trs-hd" class="col-lg-1 text-white text-nowrap">Название компетенции</th>
+                                        
+                                        <th id="trs-hd" class="col-lg-2 text-white">Ссылка</th>
+                                        <th id="trs-hd" class="col-lg-2 text-white">Подробнее</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-if="" class="warning no-result">
+                                        <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No Result !!!</td>
+                                    </tr>
+                                    <tr ng-repeat="comp in competitions">
+                                        <td>{{comp.Code}}</td>
+                                         <td>{{comp.Title}}</td>
+                                         <td>{{comp.Source}}</td>
+                                         <td><button ng-click="openCompetition(comp)" class="btn btn-success" style="margin-left: 5px;" type="submit"><i class="fa fa-check" style="font-size: 15px;"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
