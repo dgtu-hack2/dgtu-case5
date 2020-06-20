@@ -4,7 +4,9 @@ const port = 8080;
 const app = express();
 const http = require('http');
 const https = require('https');
-const {spawn} = require('child_process');
+const {
+    spawn
+} = require('child_process');
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -107,6 +109,10 @@ function deleteAllFromCollection() {
 app.get("/api/getDiagram", jsonParser, function (request, response) {
     dbo.collection(dgtuCollection).find({}).toArray(function (err, results) {
         if (err) throw err;
+        //var address = request.connection.remoteAddress;
+        //if(!address.startsWith('127')){
+        //    console.log('bad request')
+        //}
         //console.log(request.connection.remoteAddress) //определение ip со стороны клиента
         //console.log("SELECT VALUE:", results);
         response.send(results);
@@ -142,20 +148,34 @@ app.get("/api/getGraphsFunctions", jsonParser, function (request, response) {
 });
 
 
+app.get("/api/getCompetitionList", jsonParser, function (request, response) {
+    var pks = request.body;
+    var query = {
+        item: "PKs"
+    };
+    dbo.collection(dgtuCollection).find(query).toArray(function (err, result) {
+        if (err) throw err;
+        var list = [];
+        var pksList = result;
+        response.send(pksList);
+        
+    });
+});
+
 /*PYTHON EXECUTE*/
 app.post("/api/executePython", jsonParser, function (req, res) {
     var dataToSend;
     // spawn new child process to call the python script
-   
+
     const python = spawn('python', ['../translate.py', req.body.url]);
     // collect data from script
     python.stdout.on('data', function (data) {
         dataToSend = data.toString();
-        //console.log('Pipe data from python script ...'+dataToSend);
+
     });
     // in close event we are sure that stream from child process is closed
     python.on('close', (code) => {
-        //console.log(`child process close all stdio with code ${code}`);
+        console.log(`child process close all stdio with code ${code}`);
         // send data to browser
         res.send(dataToSend)
     });

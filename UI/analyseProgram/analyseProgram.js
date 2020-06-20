@@ -16,6 +16,7 @@ analyseProgram.controller('AnalyseProgCtrl', function ($scope, analyseService, $
 
             $scope.isLoading = true;
             analyseService.compareTo(url).then(function (response) {
+                console.log(response);
                 if (!response) {
                     alert('no response');
                 }
