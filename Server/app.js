@@ -88,7 +88,7 @@ function updateValue() {
     };
     dbo.collection(dgtuCollection).updateOne(queryOfUpdate, updatedValue, function (err, res) {
         if (err) throw err;
-        console.log("1 document updated");
+        //console.log("1 document updated");
         deleteAllFromCollection();
     });
 }
@@ -97,7 +97,7 @@ function deleteAllFromCollection() {
     var queryToDelete = {};
     dbo.collection(dgtuCollection).deleteMany(queryToDelete, function (err, obj) {
         if (err) throw err;
-        console.log("All documents deleted");
+        //console.log("All documents deleted");
 
     });
 }
@@ -107,8 +107,8 @@ function deleteAllFromCollection() {
 app.get("/api/getDiagram", jsonParser, function (request, response) {
     dbo.collection(dgtuCollection).find({}).toArray(function (err, results) {
         if (err) throw err;
-        console.log(request.connection.remoteAddress) //определение ip со стороны клиента
-        console.log("SELECT VALUE:", results);
+        //console.log(request.connection.remoteAddress) //определение ip со стороны клиента
+        //console.log("SELECT VALUE:", results);
         response.send(results);
     });
 });
@@ -124,24 +124,37 @@ app.get("/api/getPrograms", jsonParser, function (request, response) {
     dbo.collection(dgtuCollection).find(query).toArray(function (err, result) {
         if (err) throw err;
 
-        console.log(result);
+        //console.log(result);
         response.send(result);
     });
 });
 
+app.get("/api/getGraphsFunctions", jsonParser, function (request, response) {
+    var query = {
+        item: "FuncGraphs"
+    };
+    dbo.collection(dgtuCollection).find(query).toArray(function (err, result) {
+        if (err) throw err;
+
+        //console.log(result);
+        response.send(result);
+    });
+});
+
+
 /*PYTHON EXECUTE*/
-app.get("/api/executePython", jsonParser, function (request, response) {
+app.get("/api/executePython", jsonParser, function (req, res) {
     var dataToSend;
     // spawn new child process to call the python script
-    const python = spawn('python', ['translate.py']);
+    const python = spawn('python', ['../translate.py']);
     // collect data from script
     python.stdout.on('data', function (data) {
-        console.log('Pipe data from python script ...');
         dataToSend = data.toString();
+        //console.log('Pipe data from python script ...'+dataToSend);
     });
     // in close event we are sure that stream from child process is closed
     python.on('close', (code) => {
-        console.log(`child process close all stdio with code ${code}`);
+        //console.log(`child process close all stdio with code ${code}`);
         // send data to browser
         res.send(dataToSend)
     });

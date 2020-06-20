@@ -269,6 +269,22 @@ myApp.factory('hhService', function($http, $window, $q, $location, $rootScope, $
     return service;
 });
 
+myApp.factory('grapthService', function($http, $window, $q, $location, $rootScope, $sce, infoService) {
+
+    var service = {};
+    
+     service.getGraphsFunctions = function(search, page) {
+        var deferred = $q.defer();
+        $http.get(ipAdress + '/api/getGraphsFunctions').success(function(response){
+            deferred.resolve(response);
+        }).error(function(){
+            deferred.reject('Error in getGraphsFunctions in grapthService function');
+        });
+        return deferred.promise;
+    };  
+
+    return service;
+});
 
 myApp.factory('programService', function($http, $window, $q, $location, $rootScope, $sce, infoService) {
 
