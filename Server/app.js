@@ -181,6 +181,18 @@ app.post("/api/executePython", jsonParser, function (req, res) {
     });
 });
 
+app.get("/api/getStudents", jsonParser, function (request, response) {
+    var query = {
+        item: "Students"
+    };
+    dbo.collection(dgtuCollection).find(query).toArray(function (err, result) {
+        if (err) throw err;
+
+        //console.log(result);
+        response.send(result);
+    });
+});
+
 /*server start */
 app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
