@@ -38,14 +38,15 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
         });
     }
     
-    function functionHrParams(){
-        urlForComparison
-        hhService.getHhParamsByVacancyName().then(function(){
-            
-        });
+    function functionHrParams(seacrch){
+        
+         hhService.getHhParamsByVacancyName(seacrch).then(function(response){
+             console.log(response)
+              return response;
+         });
         
         console.log("func A");
-        return 1;
+       
     }
     
     function functionB(){

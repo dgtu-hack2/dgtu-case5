@@ -254,7 +254,7 @@ myApp.factory('diagramService', function ($http, $window, $q, $location, $rootSc
 myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, $sce, infoService) {
 
     var service = {};
-
+    
 
 
     service.getVacancies = function (search, page) {
@@ -274,17 +274,13 @@ myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, 
     service.countVacancies = 0;
     service.dispersion = 0;
 
-    service.getHhDiagram = function () {
-        
-    }
-    
     service.getHhParamsByVacancyName = function (vacancyName) {
         service.middleSalary = 0;
         service.countVacancies = 0;
         service.dispersion = 0;
         service.searchList = [];
         if (service.hhSearch) {
-            service.getHhVacancions(vacancyName, 0);
+            return service.getHhVacancions(vacancyName, 0);
         } else {
             alert("Bad search value")
         }
@@ -325,22 +321,27 @@ myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, 
             middleSalary: service.middleSalary,
             countVacancies: service.countVacancies
         }
+         return params;
     }
-
+    var maxPageValue = 0;
     service.getHhVacancions = function(search, page) {
 
         hhService.getVacancies(search, page).then(function (data) {
             if (data && data.items) {
                 service.searchList.push.apply(service.searchList, data.items);
+                var maxPageValue = 3; //data.pages
+                if(data.pages){
+                    
+                }
                 if (data.pages - 1 > page) {
                     page++;
                     service.getHhVacancions(search, page);
                 } else {
-                    service.calcValues();
+                   return service.calcValues();
                 }
             }
         }, function () {
-            service.calcValues();
+            return service.calcValues();
         });
     }
     
