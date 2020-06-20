@@ -1,4 +1,4 @@
-# from pymongo import MongoClient
+from pymongo import MongoClient
 from bson.objectid import ObjectId
 from googletrans import Translator
 from pprint import pprint
@@ -9,29 +9,30 @@ from bs4 import BeautifulSoup
 import re
 import numpy as np
 from scipy import spatial
+import sys
 
 words = []
 
 
-# def trans_values(obj, translator):
-#     for value in obj:
-#         if isinstance(value, dict):
-#             value = trans_values(value.values(), translator)
-#         elif isinstance(value, list):
-#             value = trans_values(value, translator)
-#         else:
-#             words.append(translator.translate(str(value), dest="en").text)
-#
-#
-# def translate(host, port, doc_id):
-#     translator = Translator()
-#
-#     client = MongoClient(host, port)
-#     db = client['test']
-#     collection = db['testcol']
-#     document = collection.find_one({'_id': ObjectId(str('5eed22a7b7da9028b46cfd2b'))})
-#
-#     trans_values(document['09_03_02_01'].values(), translator)
+def trans_values(obj, translator):
+    for value in obj:
+        if isinstance(value, dict):
+            trans_values(value.values(), translator)
+        elif isinstance(value, list):
+            trans_values(value, translator)
+        else:
+            words.append(translator.translate(str(value), dest="en").text)
+
+
+def translate(host, port, doc_id):
+    translator = Translator()
+
+    client = MongoClient(host, port)
+    db = client['test']
+    collection = db['testcol']
+    document = collection.find_one({'_id': ObjectId(str(doc_id))})
+
+    trans_values(document['09_03_02_01'].values(), translator)
 
 
 def get_html(url):
@@ -45,8 +46,6 @@ def compare(link):
     for item in content:
         if len(item):
             prepared.append(item.strip())
-
-    pprint(prepared)
     
     # сравниваем
     dr_kw = dict()
@@ -73,5 +72,5 @@ def compare(link):
 
 
 if __name__ == "__main__":
-#    translated = translate('168.63.61.94', 27017, '5eed22a7b7da9028b46cfd2b')
-    compare("http://www.python.org")
+    translate('168.63.61.94', 27017, '5eed22a7b7da9028b46cfd2b')
+    compare(sys.argv[1])

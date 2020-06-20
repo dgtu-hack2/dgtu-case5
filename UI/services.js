@@ -303,6 +303,23 @@ myApp.factory('programService', function($http, $window, $q, $location, $rootSco
     return service;
 });
 
+myApp.factory('analyseService', function($http, $window, $q, $location, $rootScope, $sce, infoService) {
+
+    var service = {};
+
+    service.compareTo = function(url) {
+        var deferred = $q.defer();
+        $http.get(ipAdress + '/api/executePython&url=' + url).success(function(response){
+            deferred.resolve(response);
+        }).error(function(){
+            deferred.reject('Error in getDiagramm in diagramService function');
+        });
+        return deferred.promise;
+    };
+
+    return service;
+});
+
 
 /*
 
