@@ -110,7 +110,7 @@ app.get("/api/getDiagram", jsonParser, function (request, response) {
     dbo.collection(dgtuCollection).find({}).toArray(function (err, results) {
         if (err) throw err;
         //var address = request.connection.remoteAddress;
-        //if(!address.startsWith('192')){
+        //if(!address.startsWith('127')){
         //    console.log('bad request')
         //}
         //console.log(request.connection.remoteAddress) //определение ip со стороны клиента
