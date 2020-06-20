@@ -291,7 +291,7 @@ myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, 
     service.countVacancies = 0;
     service.dispersion = 0;
     service.params = [];
-    service.getHhParamsByVacancyName = function (vacancyName) {
+    service.getHhParamsByVacancyName = function (vacancyName, program) {
         var deferred = $q.defer();
         service.params = [];
         service.middleSalary = 0;
@@ -300,10 +300,10 @@ myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, 
         service.searchList = [];
         
         if (vacancyName) {
-            service.getHhVacancions(vacancyName, 0);
-            setTimeout(function(){
+            service.getHhVacancions(vacancyName, 0, program);
+             
                 deferred.resolve(service.params)
-            },1500);
+             
         } else {
             alert("Bad search value")
             deferred.reject('Error in  function');
@@ -311,7 +311,7 @@ myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, 
         return deferred.promise;
     }
 
-    service.calcValues = function () {
+    service.calcValues = function (program) {
         service.countVacancies = service.searchList.length;
         service.middleSalary = 0;
         service.salaryCount = 0;
@@ -344,24 +344,24 @@ myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, 
 
         var param1 = {
                 key: 'Дисперсия',
-                value: service.dispersion
+                value: service.dispersion.toFixed(2)
             };
           var param2 =  {
                 key: 'Средняя зарплата',
-                value: service.middleSalary
+                value: service.middleSalary.toFixed(2)
             }; 
               var param3 ={
                 key: 'Количество вакансий',
                 value: service.countVacancies
             };
-        service.params.push(param1)
-        service.params.push(param2)
-        service.params.push(param3)
+        program.params.push(param1)
+        program.params.push(param2)
+        program.params.push(param3)
         
          
     }
     var maxPageValue = 0;
-    service.getHhVacancions = function (search, page) {
+    service.getHhVacancions = function (search, page, program) {
         service.getVacancies(search, page).then(function (data) {
             if (data && data.items) {
                 service.searchList.push.apply(service.searchList, data.items);
@@ -371,13 +371,13 @@ myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, 
                 }
                 if (maxPageValue - 1 > page) {
                     page++;
-                    service.getHhVacancions(search, page);
+                    service.getHhVacancions(search, page, program);
                 } else {
-                    service.calcValues();
+                    service.calcValues(program);
                 }
             }
         }, function () {
-            service.calcValues();
+            service.calcValues(program);
         });
     }
 

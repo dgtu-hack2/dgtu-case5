@@ -35,6 +35,8 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
             var data = response;
             if (data[0].FuncGraphs) {
                 $scope.graphFunctions = data[0].FuncGraphs;
+                $scope.functionForIndicators = $scope.graphFunctions[1].ParamsName[0];
+                $scope.lookingForProgramMetricsByFunctions($scope.functionForIndicators)
                 //angular.forEach($scope.graphFunctions, function (funcItem) {
                 //    angular.forEach(funcItem.MarksFunc, function (markItem) {
                 //        eval(markItem + '()');
@@ -47,7 +49,7 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
     $scope.lookingForProgramMetricsByFunctions = function (functionForIndicators) {
         angular.forEach($scope.graphFunctions, function (funcItem) {
             angular.forEach(funcItem.MarksFunc, function (markItem, index) {
-                 
+
                 if (funcItem.ParamsName[index] == functionForIndicators) {
                     eval(markItem + '()');
                 }
@@ -58,17 +60,54 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
     function hhParams(seacrch) {
         angular.forEach($scope.programs, function (program) {
             program.params = [];
-             var seacrch = 'Программирование';
-            
-             hhService.getHhParamsByVacancyName(program.HHProg).then(function (response) {
-                   
-                    program.params.push.apply(program.params, response.params); 
-                   
-             });
-             
+            var seacrch = 'Программирование';
+
+            hhService.getHhParamsByVacancyName(program.HHProg, program).then(function (response) {
+                var params = JSON.parse(JSON.stringify(response))
+                //program.params.push.apply(program.params, params); 
+
+            });
+
         });
-        
+
     }
+    $scope.setCanvas = function (program, index) {
+//      value / max(key, value)
+//        key / max(key, value)
+         
+        var dataset = [{
+                label: "label1",
+                backgroundColor: "rgba(169, 209, 140, 0.1)",
+                data: [program.params[0].value, program.params[1].value,  program.params[2].value]
+                } ];
+         var legends = [program.params[0].key, program.params[1].key, program.params[2].key]
+        setTimeout(function () {
+            drawRadar(index, dataset, legends);
+        }, 1500);
+    }
+
+
+
+    /*setTimeout(function(){
+            angular.forEach($scope.programs, function (program, index) {
+            {
+                    label: "Label 1",
+                    backgroundColor: "rgba(169, 209, 140, 0.1)",
+                    data: [65, 75, 70, 80, 60, 80]
+                }, {
+                    label: "Label 2",
+                    backgroundColor: "rgba(106, 34, 112, 0.1)",
+                    data: [80, 70, 10, 30, 25, 83]
+                }, {
+                    label: "Label 3",
+                    backgroundColor: "rgba(34, 69, 112, 0.1)",
+                    data: [21, 72, 50, 12, 64, 34]
+                }, {
+                    label: "Label 4",
+                    backgroundColor: "rgba(199, 121, 132, 0.1)",
+                    data: [32, 34, 41, 74, 35, 60]
+                }
+        },2500)*/
 
     function programIndicators() {
         angular.forEach($scope.programs, function (program) {
@@ -142,13 +181,21 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
             });
             setTimeout(function () {
                 $scope.moduleGrade = moduleHasComp / moduleGrade;
-                var value = { key:'Закрытие компетенций по программе', value: moduleGrade};
+                var value = {
+                    key: 'Закрытие компетенций по программе',
+                    value: moduleGrade
+                };
                 program.params.push(value);
                 //VALUE
                 console.log($scope.moduleGrade)
             }, 2000)
 
-            getStudentsCompleated();
+            var moduleScore = getStudentsCompleated();
+            var value = {
+                key: 'Доля выполненных задач у студента',
+                value: moduleScore
+            };
+            program.params.push(value);
 
         })
 
@@ -165,7 +212,7 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
      */
     function getPointsForAllModuleTasksForStudent(studentModule) {
         var commonPointsForModule = 0;
-        angular.forEach(studentModule.Tasks, function(task) {
+        angular.forEach(studentModule.Tasks, function (task) {
             commonPointsForModule += task.MarkForAnswer;
         });
 
@@ -178,7 +225,7 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
      * @param program - объект программы
      * @returns {number}
      */
-    $scope.getNumberOfModulesSuccessful = function(programId, program) {
+    $scope.getNumberOfModulesSuccessful = function (programId, program) {
         var countSuccessModules = 0;
         var countUsableModules = 0;
 
@@ -187,7 +234,7 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
             var minSuccessCost = module.MinCost;
 
             // Пробегаемся по всем студентам, которые учатся по программе
-            angular.forEach(students, function(student) {
+            angular.forEach(students, function (student) {
                 if (student.ProgramId === programId) {
 
                     // Пробегаемся по всем модулям студента
@@ -216,11 +263,11 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
     }
 
 
-    $scope.drawCanvas = function (program, index) {
+    /*$scope.drawCanvas = function (program, index) {
         setTimeout(function () {
             drawRadar(index);
         }, 1500);
-    }
+    }*/
 
 
 
@@ -276,29 +323,13 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
     //     //chart.draw(data, options);
     // }
 
-    function drawRadar(index) {
+    function drawRadar(index, dataset, label) {
         var ctx = document.getElementById('chart' + index);
         var radar = new Chart(ctx, {
             type: 'radar',
             data: {
-                labels: ["Параметр1", "Параметр2", "Параметр3", "Параметр4", "Параметр5", "Параметр6"],
-                datasets: [{
-                    label: "Label 1",
-                    backgroundColor: "rgba(169, 209, 140, 0.1)",
-                    data: [65, 75, 70, 80, 60, 80]
-                }, {
-                    label: "Label 2",
-                    backgroundColor: "rgba(106, 34, 112, 0.1)",
-                    data: [80, 70, 10, 30, 25, 83]
-                }, {
-                    label: "Label 3",
-                    backgroundColor: "rgba(34, 69, 112, 0.1)",
-                    data: [21, 72, 50, 12, 64, 34]
-                }, {
-                    label: "Label 4",
-                    backgroundColor: "rgba(199, 121, 132, 0.1)",
-                    data: [32, 34, 41, 74, 35, 60]
-                }]
+                labels: label,
+                datasets: dataset
             }
         });
     };
