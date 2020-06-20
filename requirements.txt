@@ -5,4 +5,5 @@ bson
 nltk
 gensim
 beautifulsoup4
+bs4
 lxml
