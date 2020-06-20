@@ -1,0 +1,12 @@
+googletrans
+pymongo
+pprint
+bson
+nltk
+gensim
+<<<<<<< HEAD
+beautifulsoup4
+=======
+bs4
+>>>>>>> ccb6debe371990d4d1a49d4a07818213d1c265c2
+lxml

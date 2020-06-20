@@ -50,14 +50,37 @@
                         <a class="nav-link active" href="#/competition"><i class="fas fa-newspaper"></i><span>Компетенции</span>
                         </a><a class="nav-link active" href="#/grade"><i class="fas fa-star"></i>
                             <span>Оценки</span></a>
-                        <a class="nav-link active" href="#/analize"><i class="fas fa-thermometer-half"></i><span>Анализ</span></a></li>
+                        <a class="nav-link active" href="#/analyse"><i class="fas fa-thermometer-half"></i><span>Анализ</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
         </nav>
-        <div ng-view class="mt-2 d-flex flex-column theme-showcase" id="content-wrapper" role="main"></div>
-        
-          
+
+        <div class="mt-2 d-flex flex-column container-fluid">
+            <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                    <ul class="nav navbar-nav flex-nowrap ml-auto">
+                        <li class="nav-item dropdown show d-sm-none no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="true" href=""><i class="fas fa-search"></i></a>
+                            <div class="dropdown-menu show dropdown-menu-right p-3 animated--grow-in" role="menu" aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto navbar-search w-100">
+                                    <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                        <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown no-arrow" role="presentation">
+                            <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href=""><span class="d-none d-lg-inline mr-2 text-gray-600 small">Пользователь</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg"></a>
+                                <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href=""><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Настройки</a>
+                                    <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href=""><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Выход</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div ng-view class=" theme-showcase" id="content-wrapper" role="main"></div>
+        </div>
     </div>
     <div class="d-contents bg-white sticky-footer" ng-include="'footer.html'"></div>
 
@@ -68,7 +91,7 @@
     <script src="bower_components/jquery/1.12.1/jquery-ui.js"></script>
     <script src="bower_components/jquery/jquery.blockUI.js"></script>
     <script src="bower_components/angular/angular.js"></script>
-    
+
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -76,7 +99,7 @@
     <script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
     <script src="bower_components/angular-ui-select/select.min.js"></script>
     <script src="bower_components/radar/Chart.js"></script>
-   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>-->
     <script src="assets/js/theme.js"></script>
 
     <!--Application Angular JS files-->
@@ -88,6 +111,9 @@
     <script src="grade/grade.js"></script>
     <script src="competition/competition.js"></script>
     <script src="program/program.js"></script>
+    <script src="student/student.js"></script>
+    <script src="analyse/analyse.js"></script>
+    <script src="analyseProgram/analyseProgram.js"></script>
     <!--modal windows-->
     <script src="modalWindows/ConfirmationModal/confirmationModal.js?1.0"></script>
     <script src="modalWindows/InfoModal/infoModal.js?1.0"></script>

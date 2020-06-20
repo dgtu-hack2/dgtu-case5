@@ -4,7 +4,7 @@ const port = 8080;
 const app = express();
 const http = require('http');
 const https = require('https');
-var PythonShell = require('python-shell');
+const {spawn} = require('child_process');
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -117,21 +117,8 @@ app.post("/api/postURL", jsonParser, function (request, response) {
     var requestBody = request.body;
 });
 
-var spawn = require("child_process").spawn;
-
-app.get("/api/executePython", jsonParser, function (request, response) {
-    var process = spawn('python', ["translate.py"]);
-    print(dataToSendBack)
-    sys.stdout.flush()
-    pyProg.stdout.on('data', function (data) {
-        process.stdout.on('data', function (data) {
-            console.log(data.toString());
-        });
-    });
-});
-
 app.get("/api/getPrograms", jsonParser, function (request, response) {
-     var query = {
+    var query = {
         item: "Progs"
     };
     dbo.collection(dgtuCollection).find(query).toArray(function (err, result) {
@@ -141,48 +128,24 @@ app.get("/api/getPrograms", jsonParser, function (request, response) {
         response.send(result);
     });
 });
-/*HH REQUESTS*/
-/*app.get("/api/hhInfo", jsonParser, function (request, response) {
-    const query = request.query;
-    console.log(query)
-    if (query && query.search) {
-        request.get('https://api.hh.ru/vacancies?text=' + query.search, {
-            json: true
-        }, (err, res, body) => {
-            if (err) {
-                return console.log(err);
-            }
-            console.log(res);
-            console.log('body:', body); // Print the HTML for the Google homepage.
-        });
-        const options = {
-            url: 'https://api.hh.ru/vacancies?text=' + query.search,
-            headers: {
-                'User-Agent': 'Mozilla/5.0'
-            }
-        };
 
-        https.get(options, (resp) => {
-            let data = '';
-            
-            // A chunk of data has been recieved.
-            resp.on('data', (chunk) => {
-                data += chunk;
-            });
-
-            // The whole response has been received. Print out the result.
-            resp.on('end', () => {
-                response.send(resp);
-                console.log(data );
-            });
-
-        }).on("error", (err) => {
-            console.log("Error: " + err.message);
-        });
-
-    }
-});*/
-
+/*PYTHON EXECUTE*/
+app.get("/api/executePython", jsonParser, function (request, response) {
+    var dataToSend;
+    // spawn new child process to call the python script
+    const python = spawn('python', ['translate.py']);
+    // collect data from script
+    python.stdout.on('data', function (data) {
+        console.log('Pipe data from python script ...');
+        dataToSend = data.toString();
+    });
+    // in close event we are sure that stream from child process is closed
+    python.on('close', (code) => {
+        console.log(`child process close all stdio with code ${code}`);
+        // send data to browser
+        res.send(dataToSend)
+    });
+});
 
 /*server start */
 app.listen(port, hostname, () => {

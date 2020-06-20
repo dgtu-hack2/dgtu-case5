@@ -9,9 +9,9 @@ function setIpAddress() {
     if (serverUrlIndex == 1) ipAdress = "http://localhost:8080";
 };
 
-var myApp = angular.module('myApp',['ngRoute', 'ui.bootstrap', 'ui.select', 'myApp.services', 'myApp.confirmationModal',
-        'myApp.infoModal', 'myApp.users', 'myApp.mainPage', 'myApp.hhModule', 'myApp.program', 
-          'myApp.grade', 'myApp.competition' ]);
+var myApp = angular.module('myApp', ['ngRoute', 'ui.bootstrap', 'ui.select', 'myApp.services', 'myApp.confirmationModal',
+        'myApp.infoModal', 'myApp.users', 'myApp.mainPage', 'myApp.hhModule', 'myApp.program',
+          'myApp.grade', 'myApp.competition', 'myApp.student', 'myApp.analyse', 'myApp.analyseProgram']);
 
 myApp.config(function ($routeProvider) {
     /*$httpProvider.defaults.withCredentials = true;*/
@@ -46,12 +46,20 @@ myApp.config(function ($routeProvider) {
             templateUrl: 'competition/competition.html',
             controller: 'CompCtrl',
         })
-    .when('/grade', {
+        .when('/student', {
+            templateUrl: 'student/student.html',
+            controller: 'StudentCtrl',
+        })
+        .when('/grade', {
             templateUrl: 'grade/grade.html',
             controller: 'GradeCtrl',
         })
+        .when('/analyse', {
+            templateUrl: 'analyse/analyse.html',
+            controller: 'AnalyseCtrl',
+        })
 
-     
+
 
 });
 
