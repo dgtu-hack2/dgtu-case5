@@ -10,7 +10,7 @@
                         <option selected>Open this select menu</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
-                    
+
                     </select>
                 </div>
             </div>
@@ -95,11 +95,11 @@
                 </div>
                 <div>
                     <ul class="nav nav-tabs nav-fill">
-                        <li class="nav-item border"><a class="nav-link text-center" href="" ng-click="(selectedTab!='goodState') ? selectedTab = 'goodState' : selectedTab = ''" ng-class="{'active bg-success text-white':selectedTab == 'goodState'}" role="tab" data-toggle="tab" ><strong>Хорошее состояние</strong></a></li>
-                        <li class="nav-item border"><a class="nav-link" role="tab"   href="" data-toggle="tab" ng-click="(selectedTab!='middleState') ? selectedTab = 'middleState' : selectedTab = ''" ng-class="{'active bg-warning text-white':selectedTab == 'middleState'}"  ><strong>Требует внимания</strong></a></li>
-                        <li class="nav-item border"><a class="nav-link" href="" role="tab" data-toggle="tab" ng-click="(selectedTab!='badState') ? selectedTab = 'badState' : selectedTab = ''" ng-class="{'active bg-danger text-white':selectedTab == 'badState'}"  "><strong>Плохое состояние</strong></a></li>
+                        <li class="nav-item border"><a class="nav-link text-center" href="" ng-click="(selectedTab!='goodState') ? selectedTab = 'goodState' : selectedTab = ''" ng-class="{'active bg-success text-white':selectedTab == 'goodState'}" role="tab" data-toggle="tab"><strong>Хорошее состояние</strong></a></li>
+                        <li class="nav-item border"><a class="nav-link" role="tab" href="" data-toggle="tab" ng-click="(selectedTab!='middleState') ? selectedTab = 'middleState' : selectedTab = ''" ng-class="{'active bg-warning text-white':selectedTab == 'middleState'}"><strong>Требует внимания</strong></a></li>
+                        <li class="nav-item border"><a class="nav-link" href="" role="tab" data-toggle="tab" ng-click="(selectedTab!='badState') ? selectedTab = 'badState' : selectedTab = ''" ng-class="{'active bg-danger text-white':selectedTab == 'badState'}"><strong>Плохое состояние</strong></a></li>
                     </ul>
-                    <div ng-repeat="program in programs">
+                    <div ng-repeat=" program in programs">
                         <div class="tab-pane" role="tabpanel">
                             <div role="tablist" id="accordion-1">
                                 <div class="card">
@@ -111,12 +111,10 @@
                                             <!--bg-success-->
                                         </div>
                                     </div>
-                                    <div ng-show="showProgramInfo">
+                                    <div ng-show="showProgramInfo" ng-init="drawCanvas(program, $index)">
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col">
-                                                    <p>Диаграмма</p>
-                                                </div>
+
                                                 <div class="col">
                                                     <p>Какая-то информация</p>
                                                     <ul>
@@ -128,7 +126,13 @@
                                                 </div>
                                                 <div class="col d-xl-flex flex-column my-auto align-items-xl-center">
                                                     <div><button class="btn btn-primary border rounded" type="button" style="background-color: #4A73AE;width: 230px;max-width: 100%;margin-bottom: 15px;" ng-click="lookProgram(program)">Посмотреть программу</button></div>
-                                                    <!--<div><button class="btn btn-primary border rounded" type="button" style="background-color: #4A73AE;width: 230px;max-width: 100%;">Посмотреть компетенции</button></div>-->
+                                                    <!--<div><button class="btn btn-primary border rounded" type="button" style="background-color: #4A73AE;width: 230px;max-width: 100%;">Посмотреть компетенции</button></div> -->>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <p>Диаграмма</p>
+                                                    <div class="text-center">
+                                                        <canvas id="chart{{$index}}" style="max-width: 500px; max-height: 500px"></canvas>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <hr>
@@ -145,7 +149,6 @@
                                                     </ul>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>

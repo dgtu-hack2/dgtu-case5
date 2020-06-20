@@ -2,22 +2,56 @@
 
 var mainPage = angular.module('myApp.mainPage', ['ngRoute']);
 
-mainPage.controller('MainPageCtrl', function ($scope, diagramService, programService, $location) {
+mainPage.controller('MainPageCtrl', function ($scope, diagramService, programService, $location, grapthService) {
 
     $scope.modelValue = "test";
 
     getPrograms();
+    getGraphsFunctions();
+        function getPrograms() {
+            programService.getPrograms().then(function (response) {
+                var data = response;
 
-    function getPrograms() {
-        programService.getPrograms().then(function (response) {
+                if (data[0].Progs) {
+                    console.log(data[0].Progs)
+                    $scope.programs = data[0].Progs;
+                }
+            });
+        }
+
+    function getGraphsFunctions() {
+        grapthService.getGraphsFunctions().then(function (response) {
             var data = response;
-
-            if (data[0].Progs) {
-                console.log(data[0].Progs)
-                $scope.programs = data[0].Progs;
+            if (data[0].FuncGraphs) {
+                console.log(data[0].FuncGraphs)
+                $scope.graphFunctions = data[0].FuncGraphs;
+                angular.forEach($scope.graphFunctions, function(funcItem){
+                    angular.forEach(funcItem.MarksFunc, function(markItem){
+                        console.log(markItem);
+                        if(typeof fn === 'function') {
+                            fn(t.parentNode.id);
+                        }
+                        eval(markItem + '()');
+                        
+                        
+                    })
+                })
             }
         });
     }
+    
+    function functionA(){
+        console.log("func A")
+    }
+    
+    function functionB(){
+        console.log("func B")
+    }
+    
+    function functionC(){
+        console.log("func C")
+    }
+
 
 
     $scope.lookProgram = function (program) {
@@ -26,7 +60,13 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
     }
 
 
+    $scope.drawCanvas = function (program, index) {
+        setTimeout(function () {
+            drawRadar(index);
+        }, 1500)
 
+
+    }
 
 
 
@@ -82,8 +122,8 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
     //     //chart.draw(data, options);
     // }
 
-    function drawRadar() {
-        var ctx = document.getElementById('chart');
+    function drawRadar(index) {
+        var ctx = document.getElementById('chart' + index);
         var radar = new Chart(ctx, {
             type: 'radar',
             data: {
