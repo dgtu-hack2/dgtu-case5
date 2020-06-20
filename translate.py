@@ -1,5 +1,4 @@
 from pymongo import MongoClient
-from bson.objectid import ObjectId
 from googletrans import Translator
 from pprint import pprint
 import urllib
@@ -30,9 +29,9 @@ def translate(host, port, doc_id):
     client = MongoClient(host, port)
     db = client['test']
     collection = db['testcol']
-    document = collection.find_one({'_id': ObjectId(str(doc_id))})
+    document = collection.find_one({ 'item': 'Progs' })
 
-    trans_values(document['09_03_02_01'].values(), translator)
+    trans_values(document['Progs']['09_03_02_01'].values(), translator)
 
 
 def get_html(url):

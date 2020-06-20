@@ -4,7 +4,7 @@ var serverUrlIndex = 0;
 setIpAddress();
 
 function setIpAddress() {
-     if (serverUrlIndex == 0) ipAdress = "http://168.63.61.94:8080";
+    if (serverUrlIndex == 0) ipAdress = "http://168.63.61.94:8080";
     //local
     if (serverUrlIndex == 1) ipAdress = "http://127.0.0.1:8080";
 };

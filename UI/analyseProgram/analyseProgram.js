@@ -12,15 +12,17 @@ analyseProgram.controller('AnalyseProgCtrl', function ($scope, analyseService, $
         if ($scope.urlForComparison){
             var url = {
                 'url': $scope.urlForComparison
-            };
+            }
 
+            $scope.isLoading = true;
             analyseService.compareTo(url).then(function (response) {
                 console.log(response);
                 if (!response) {
                     alert('no response');
                 }
 
-                var similar = response * 100;
+                $scope.isLoading = false;
+                var similar = parseFloat(response) * 100;
                 var differ = 100 - similar;
 
                 var ctx = document.getElementById('compareResult');
