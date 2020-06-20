@@ -58,9 +58,10 @@ myApp.config(function ($routeProvider) {
             templateUrl: 'analyse/analyse.html',
             controller: 'AnalyseCtrl',
         })
-
-
-
+        .when('/analyseProgram', {
+            templateUrl: 'analyseProgram/analyseProgram.html',
+            controller: 'AnalyseProgCtrl',
+        })
 });
 
 myApp.controller('UserCtrl', function ($scope) { //это контроллер , он ставится в шаблоне html ng-controller="UserCtrl" - и отвечает за видимость внутри вложенных dom элементов старницы
