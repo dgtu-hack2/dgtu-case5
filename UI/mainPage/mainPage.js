@@ -2,7 +2,8 @@
 
 var mainPage = angular.module('myApp.mainPage', ['ngRoute']);
 
-mainPage.controller('MainPageCtrl', function ($scope, diagramService, programService, $location, grapthService) {
+mainPage.controller('MainPageCtrl', function ($scope, diagramService, programService, 
+                                               $location, grapthService, hhService ) {
 
     $scope.modelValue = "test";
 
@@ -38,11 +39,12 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
         });
     }
     
-    function functionHrParams(seacrch){
-        
+    function functionA(seacrch){
+        var seacrch = 'Программирование';
          hhService.getHhParamsByVacancyName(seacrch).then(function(response){
-             console.log(response)
-              return response;
+             setTimeout(function(){
+                 console.log(hhService.params)
+             }, 2500)
          });
         
         console.log("func A");
@@ -50,6 +52,7 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
     }
     
     function functionB(){
+        //у компетенции есть pk-1 
         console.log("func B")
     }
     

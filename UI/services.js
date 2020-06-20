@@ -273,17 +273,22 @@ myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, 
     service.middleSalary = 0;
     service.countVacancies = 0;
     service.dispersion = 0;
-
+    
     service.getHhParamsByVacancyName = function (vacancyName) {
+        var deferred = $q.defer();
         service.middleSalary = 0;
         service.countVacancies = 0;
         service.dispersion = 0;
         service.searchList = [];
-        if (service.hhSearch) {
-            return service.getHhVacancions(vacancyName, 0);
+        service.params = {};
+        if (vacancyName) {
+            service.getHhVacancions(vacancyName, 0);
+            deferred.resolve(service.params)
         } else {
             alert("Bad search value")
+            deferred.reject('Error in getGraphsFunctions in grapthService function');
         }
+        return deferred.promise;
     }
 
     service.calcValues = function() {
@@ -302,7 +307,7 @@ myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, 
                     if (item.salary.from && !item.salary.to) {
                         service.salaryCount++;
                         service.middleSalary += item.salary.from;
-                        salaryes.push(item.salary.from);
+                        service.salaryes.push(item.salary.from);
                     }
                 }
             }
@@ -310,38 +315,38 @@ myApp.factory('hhService', function ($http, $window, $q, $location, $rootScope, 
 
         service.middleSalary = service.middleSalary / service.salaryCount;
         var sSquare = 0;
-        angular.forEach(salaryes, function (salary) {
+        angular.forEach(service.salaryes, function (salary) {
             sSquare += ((salary - service.middleSalary) * (salary - service.middleSalary));
         });
 
-        service.dispersion = Math.sqrt(sSquare / (salaryCount - 1));
+        service.dispersion = Math.sqrt(sSquare / (service.salaryCount - 1));
         
-        var params = {
+        service.params = {
             dispersion:  service.dispersion,
             middleSalary: service.middleSalary,
             countVacancies: service.countVacancies
         }
-         return params;
+       
+        
     }
     var maxPageValue = 0;
     service.getHhVacancions = function(search, page) {
-
-        hhService.getVacancies(search, page).then(function (data) {
+        service.getVacancies(search, page).then(function (data) {
             if (data && data.items) {
                 service.searchList.push.apply(service.searchList, data.items);
                 var maxPageValue = 3; //data.pages
-                if(data.pages){
-                    
+                if(data.pages && data.pages > 3){
+                    maxPageValue = 3;
                 }
-                if (data.pages - 1 > page) {analyseService
+                if (maxPageValue - 1 > page) { 
                     page++;
                     service.getHhVacancions(search, page);
                 } else {
-                   return service.calcValues();
+                   service.calcValues();
                 }
             }
         }, function () {
-            return service.calcValues();
+             service.calcValues();
         });
     }
     
