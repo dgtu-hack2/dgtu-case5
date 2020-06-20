@@ -14,16 +14,20 @@
                         <div class="col">
                             <h5>Статус</h5>
                             <p>{{program.Status}}<br></p>
+                            <hr>
                             <h5>Аккредитующая организация</h5>
                             <p>{{program.Accreditaion}}</p>
+                            <hr>
                             <h5>Документ аккредитующей организации</h5>
-                            <p>{{program.AccreditationLink}}</p>
+                            <p>{{program.AccreditationLink}}</p>                            
                         </div>
                         <div class="col">
                             <h5>Руководитель программы</h5>
                             <p>{{program.ProgHead.ProgHeadName}}</p>
+                            <hr>
                             <h5>Просчёт с HH.ru</h5>
                             <p>{{program.HHProg}}</p>
+                            <hr>
                             <h5>Аналоги</h5>
                             <ul>
                                 <li ng-repeat="analog in program.Analogue track by $index">{{analog}}</li>
@@ -54,9 +58,11 @@
                                                 <div class="col">
                                                     <h5>Рукводитель модуля</h5>
                                                     <p>{{module.ModuleHead.ModuleHeadName}} </p>
+                                                    <hr>
                                                     <h5>Минимальный балл</h5>
                                                     <p>{{module.MinCost}}
                                                     </p>
+                                                    <hr>
                                                     <h5>Публикации</h5>
                                                     <p>{{module.Publications}}
                                                     </p>
@@ -64,15 +70,18 @@
                                                 <div class="col">
                                                     <h5>Замещающие МУК по курсу</h5>
                                                     <p>{{module.ModuleHead.MOOKCourse}}</p>
+                                                    <hr>
                                                     <h5>МУК по модулю</h5>
                                                     <p>{{module.ModuleHead.MOOKExternal}}
                                                     </p>
+                                                    <hr>
                                                     <h5>Компетенции</h5>
                                                     <ul>
                                                         <li ng-repeat="comp in module.Competition track by $index">{{comp }}</li>
                                                     </ul>
                                                 </div>
                                             </div>
+                                            <hr>
                                             <h5 style="color: rgb(78,115,223);margin-bottom: 20px;">Задачи</h5>
                                             <div  ng-repeat="task in module.Tasks">
                                                 <div class="card">
@@ -84,17 +93,21 @@
                                                             <h5>Описание задачи</h5>
                                                             <p class="card-text">{{task.TeskDesc}}
                                                             </p>
+                                                            <hr>
                                                             <h5>Тип задачи</h5>
                                                             <p class="card-text">
                                                                 {{task.TaskType}}
                                                             </p>
+                                                            <hr>
                                                             <h5>Балл за задачу</h5>
                                                             <p class="card-text">{{task.Cost}}</p>
+                                                            <hr>
                                                             <h5>Дней на выполнение</h5>
                                                             <p class="card-text">{{task.DaysToDone}}</p>
+                                                            <hr>
                                                             <h5>Компонент компетенции</h5>
                                                             <ul>
-                                                                <li ng-repeat="item in task.Ind">{{item}} </li>
+                                                                <li ng-repeat="item in task.Ind">{{getComponent(item)}} </li>
                                                             </ul>
                                                         </div>
                                                     </div>
