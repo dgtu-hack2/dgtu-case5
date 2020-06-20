@@ -21,12 +21,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <div ng-repeat="program in programs">
-                                                    <tr>
-                                                        <td>{{program.ProgName}}</td>
-                                                        <td><button class="btn btn-success" style="margin-left: 5px;" type="submit"><i class="fa fa-check" style="font-size: 15px;"></i></button></td>
-                                                    </tr>
-                                                </div>
+                                                <tr ng-repeat="program in programs">
+                                                    <td>{{program.ProgName}}</td>
+                                                    <td><a href="#/analyseProgram" class="btn btn-success" style="margin-left: 5px;"><i class="fa fa-check" style="font-size: 15px;"></i></a></td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
