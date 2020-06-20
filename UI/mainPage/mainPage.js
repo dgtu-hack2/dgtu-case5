@@ -27,29 +27,46 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
             if (data[0].FuncGraphs) {
                 console.log(data[0].FuncGraphs)
                 $scope.graphFunctions = data[0].FuncGraphs;
-                angular.forEach($scope.graphFunctions, function (funcItem) {
-                    angular.forEach(funcItem.MarksFunc, function (markItem) {
-                        eval(markItem + '()');
-                    })
-                })
+                //angular.forEach($scope.graphFunctions, function (funcItem) {
+                //    angular.forEach(funcItem.MarksFunc, function (markItem) {
+                //        eval(markItem + '()');
+                //    })
+                //})
             }
         });
     }
 
+    $scope.lookingForProgramMetricsByFunctions = function (functionForIndicators) {
+        angular.forEach($scope.graphFunctions, function (funcItem) {
+            angular.forEach(funcItem.MarksFunc, function (markItem, index) {
+                 
+                if (funcItem.ParamsName[index] == functionForIndicators) {
+                    eval(markItem + '()');
+                }
+
+            })
+        })
+        
+    }
+
     function hhParams(seacrch) {
-        var seacrch = 'Программирование';
-        hhService.getHhParamsByVacancyName(seacrch).then(function (response) {
-            setTimeout(function () {
-                console.log(hhService.params)
-            }, 2500)
+        angular.forEach($scope.programs, function (program) {
+            program.params = [];
+             var seacrch = 'Программирование';
+             hhService.getHhParamsByVacancyName(program.HHProg).then(function (response) {
+                 setTimeout(function () {
+                     console.log(hhService.params)
+                     program.params.push(params);
+                 }, 2500)
+             });
         });
     }
 
     function programIndicators() {
 
         angular.forEach($scope.programs, function (program) {
-
-            console.log(program)
+            program.params = [];
+            //console.log(program)
             //check modules
             var moduleGrade = 0;
             var moduleHasComp = 0;
@@ -118,6 +135,8 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
             });
             setTimeout(function () {
                 $scope.moduleGrade = moduleHasComp / moduleGrade;
+                var value = {'Закрытие компетенций по программе': moduleGrade};
+                program.params.push(value);
                 //VALUE
                 console.log($scope.moduleGrade)
             }, 2000)
@@ -128,10 +147,10 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
 
     }
 
-    function getStudentsCompleated(){
+    function getStudentsCompleated() {
         
     }
-    
+
     $scope.lookProgram = function (program) {
         localStorage.setItem('program', JSON.stringify(program));
         $location.path('program');
