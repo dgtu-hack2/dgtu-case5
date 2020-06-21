@@ -3,7 +3,7 @@ var ipAdress;
 // var serverUrlIndex = 0;
 
 // FOR LOCAL
-var serverUrlIndex = 1;
+var serverUrlIndex = 0;
 
 setIpAddress();
 

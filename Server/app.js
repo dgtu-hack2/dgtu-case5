@@ -1,7 +1,7 @@
 const express = require("express");
-// const hostname = '10.0.0.4';
+ const hostname = '10.0.0.4';
 // FOR LOCAL
-const hostname = '127.0.0.1';
+//const hostname = '127.0.0.1';
 const port = 8080;
 const app = express();
 const http = require('http');
@@ -24,9 +24,9 @@ const jsonParser = express.json();
 var mongo = require('mongodb');
 
 var MongoClient = require('mongodb').MongoClient;
-// var mongoDbUrl = "mongodb://localhost:27017/mydb";
+ var mongoDbUrl = "mongodb://localhost:27017/mydb";
 // FOR LOCAL
-var mongoDbUrl = "mongodb://168.63.61.94:27017/mydb";
+//var mongoDbUrl = "mongodb://168.63.61.94:27017/mydb";
 var dbo = null;
 var dbName = "test";
 var dgtuCollection = "testcol";

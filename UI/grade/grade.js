@@ -27,15 +27,23 @@ grade.controller('GradeCtrl', function ($scope, userService, programService, $lo
 
             if (data[0].Progs) {
                 programs = data[0].Progs;
+                var programsTmp = [];
+                angular.forEach(programs, function (program) {
+                    programsTmp.push(program)
+                })
+                programs = programsTmp;
             }
         });
     }
 
     $scope.getProgramName = function(programId) {
-        var desiredProgram = Object.fromEntries(Object.entries(programs).filter( function(program) {
-            return program.Code === programId;
-        }));
+        var progName = programId;
+         angular.forEach(programs, function(program) {
+             if (program.Code === programId) {
+                 progName = program.ProgName;
+             }
+        });
 
-        return desiredProgram && desiredProgram.ProgName || programId;
+        return progName;
     };
 });

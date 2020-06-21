@@ -46,7 +46,6 @@ def compare(link):
         if len(item.strip()):
             prepared.append(item.strip())
             
-    pprint(prepared)
     # сравниваем
     dr_kw = dict()
     for line in words:

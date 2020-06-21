@@ -17,7 +17,7 @@ analyseProgram.controller('AnalyseProgCtrl', function ($scope, analyseService, $
             $scope.isLoading = true;
             analyseService.compareTo(url).then(function (response) {
                 if (!response) {
-                    alert('На нашем сервере возникли временные неполадки. Уже исправляем :)');
+                    alert('На нашем сервере возникли временные неполадки. Уже исправляем ');
                 }
 
                 $scope.isLoading = false;
