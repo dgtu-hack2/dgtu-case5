@@ -237,9 +237,24 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
             var countOfCorrectParams = 0;
             var sumParValue = 0;
             var sumMinNorm = 0;
-            angular.forEach(params, function (par, index) {
+            angular.forEach(params, function (par, indexQ) {
                 sumParValue += parseInt(par.value);
-                sumMinNorm += minMarks[index];
+                sumMinNorm += minMarks[indexQ];
+            })
+            angular.forEach(params, function (par, indexE) {
+                if(index==0 || index == 3){
+                    if(indexE==2){
+                        par.value = (sumMinNorm + sumParValue).toFixed(2);
+                    }
+                     
+                }
+                if(index==2){
+                    if(indexE==0){
+                        par.value = ($scope.functionForIndicators.indexOf("Хэд")>=0) ? 27000 : 0.3;
+                    }
+                    
+                }
+               
             })
             console.log(sumParValue, sumMinNorm)
             var coef = (sumParValue / sumMinNorm) * 100;
@@ -257,17 +272,25 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
 
             } else {
                 program.status = statuses[2]; //danger
-
             }
             tryApply();
+            
 
-        })
-        $scope.programs[0].status = statuses[0];
-        $scope.programs[0].state = '100%'
-        $scope.programs[1].status = statuses[1];
-        $scope.programs[1].state = '45%'
-        $scope.programs[2].status = statuses[2];
-        $scope.programs[2].state = '10%'
+
+        });
+        
+            $scope.programs[0].state = '100%'
+            $scope.programs[0].status = statuses[0];
+        
+            $scope.programs[1].state = 40 + Math.random() * 10 + '%'
+            $scope.programs[1].status = statuses[1];
+        
+            $scope.programs[2].state = Math.random() * 15 + '%'
+            $scope.programs[2].status = statuses[2];
+        
+            $scope.programs[3].state = 75 + Math.random() * 25 + '%'
+            $scope.programs[3].status = statuses[0];
+
 
     }
 

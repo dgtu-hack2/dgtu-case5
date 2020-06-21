@@ -23,8 +23,9 @@
                 <div>
                     <ul class="nav nav-tabs nav-fill" ng-init="selectedTab ='goodState' ">
                          <li class="nav-item border"><a class="nav-link" href="" role="tab" data-toggle="tab" ng-click="selectedTab = 'badState';statusSelected = statuses[2]" ng-class="{'active bg-danger text-white':selectedTab == 'badState'}"><strong>Плохое состояние</strong></a></li>
-                        <li class="nav-item border"><a class="nav-link text-center" href="" ng-click="selectedTab='goodState'; statusSelected = statuses[0]" ng-class="{'active bg-success text-white':selectedTab == 'goodState'}" role="tab" data-toggle="tab"><strong>Хорошее состояние</strong></a></li>
                         <li class="nav-item border"><a class="nav-link" role="tab" href="" data-toggle="tab" ng-click="selectedTab='middleState'; statusSelected = statuses[1]" ng-class="{'active bg-warning text-white':selectedTab == 'middleState'}"><strong>Требует внимания</strong></a></li>
+                        <li class="nav-item border"><a class="nav-link text-center" href="" ng-click="selectedTab='goodState'; statusSelected = statuses[0]" ng-class="{'active bg-success text-white':selectedTab == 'goodState'}" role="tab" data-toggle="tab"><strong>Хорошее состояние</strong></a></li>
+                        
                        
                     </ul>
                     <div ng-show="isLoading" class="spinner-border m-3 text-primary" role="status">
