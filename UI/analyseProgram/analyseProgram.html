@@ -12,9 +12,9 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Введите ссылку</h4><input ng-model="urlForComparison" class="border rounded" type="text" style="width: 100%;max-width: 100%;">
-                            <div class="d-flex justify-content-start align-items-start">
-                                <button ng-disabled="!urlForComparison || isLoading" ng-click="compare()" class="btn btn-primary" type="button">Результат</button>
-                                <div ng-if="isLoading" class="m-3 spinner-border" role="status">
+                            <div class="d-flex justify-content-start align-items-center mt-3">
+                                <button ng-disabled="!urlForComparison || isLoading" ng-click="compare()" class="btn btn-primary" type="button"  >Результат</button>
+                                <div ng-if="isLoading" class="ml-3 spinner-border" role="status"> 
                                     <span class="sr-only">Loading...</span>
                                 </div>
                             </div>

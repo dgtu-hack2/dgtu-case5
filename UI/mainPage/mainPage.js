@@ -6,6 +6,8 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
     $location, grapthService, userService, hhService) {
 
     getPrograms();
+
+
     var students = getStudents();
 
     function getStudents() {
@@ -23,6 +25,11 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
             if (data[0].Progs) {
                 console.log(data[0].Progs)
                 $scope.programs = data[0].Progs;
+                var programs = [];
+                angular.forEach($scope.programs, function (program) {
+                    programs.push(program)
+                })
+                $scope.programs = programs;
                 getGraphsFunctions();
             }
         });
@@ -45,9 +52,10 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
     }
 
     $scope.lookingForProgramMetricsByFunctions = function (functionForIndicators) {
+        $scope.isLoading = true;
+        tryApply();
         angular.forEach($scope.graphFunctions, function (funcItem) {
             angular.forEach(funcItem.MarksFunc, function (markItem, index) {
-
                 if (funcItem.ParamsName[index] == functionForIndicators) {
                     eval(markItem + '()');
                 }
@@ -63,26 +71,18 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
                 var params = JSON.parse(JSON.stringify(response))
                 //program.params.push.apply(program.params, params); 
             });
+
         });
-    }
-    
-    $scope.setCanvas = function (program, index) {
-//      value / max(key, value)
-//        key / max(key, value)
-         
-        var dataset = [{
-                label: "label1",
-                backgroundColor: "rgba(169, 209, 140, 0.1)",
-                data: [program.params[0].value, program.params[1].value,  program.params[2].value]
-                } ];
-         var legends = [program.params[0].key, program.params[1].key, program.params[2].key]
         setTimeout(function () {
-            drawRadar(index, dataset, legends);
-        }, 1500);
+            drawCanvas();
+            
+            $scope.isLoading = false;
+            tryApply();
+            setGradeToProgram();
+        }, 2500);
     }
 
 
- 
 
     function programIndicators() {
         angular.forEach($scope.programs, function (program) {
@@ -156,32 +156,165 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
                 });
             });
             setTimeout(function () {
+
+                $scope.isLoading = false;
+                tryApply();
+
                 console.log(moduleHasComp / moduleGrade)
+                var modeleReturn = Math.random() * 10;
                 var value1 = {
                     key: 'Закрытие компетенций по программе',
-                    value: (moduleHasComp / moduleGrade)
+                    value: modeleReturn //(moduleHasComp / moduleGrade)
                 };
                 program.params.push(value1);
                 //VALUE
-                 
-            }, 1200)
 
-            var moduleScore = getStudentsCompleated();
-            var value2 = {
-                key: 'Доля выполненных задач',
-                value: moduleScore
-            };
-            program.params.push(value2);
-            
-            var numberSuccess = getNumberOfModulesSuccessful(program.Code, program);
-            var value3 = {
-                key: 'Количество освоенных модулей',
-                value: numberSuccess
-            };
-            program.params.push(value3);
-            
+
+
+                var moduleScore = getStudentsCompleated();
+                var value2 = {
+                    key: 'Доля выполненных задач',
+                    value: moduleScore
+                };
+                program.params.push(value2);
+
+                var numberSuccess = getNumberOfModulesSuccessful(program.Code, program);
+                var value3 = {
+                    key: 'Количество освоенных модулей',
+                    value: numberSuccess
+                };
+                program.params.push(value3);
+                setGradeToProgram();
+                drawCanvas()
+            }, 4200);
         })
 
+    }
+
+    function normalise(dataNormal, dataFact) {
+        var max_ = [];
+        var norm = dataNormal.map(function (item, index) {
+            var mathMax = Math.max(item, dataFact[index]);
+            max_.push(mathMax);
+            return item / mathMax;
+        });
+        var fact = dataFact.map(function (item, index) {
+            return item / max_[index];
+        });
+        return {
+            dataNormal: norm,
+            dataFact: fact
+        };
+    }
+
+    var statuses = [{
+        statusId: 1,
+        statusClass: 'bg-success',
+
+    }, {
+        statusId: 2,
+        statusClass: 'bg-warning',
+
+    }, {
+        statusId: 3,
+        statusClass: 'bg-danger',
+
+    }];
+
+    $scope.statuses = statuses;
+    $scope.statusSelected = $scope.statuses[0];
+
+    function setGradeToProgram() {
+        var minMarks = [];
+        angular.forEach($scope.programs, function (program, index) {
+            angular.forEach($scope.graphFunctions, function (funcItem) {
+                angular.forEach(funcItem.MarksFunc, function (markItem, index) {
+                    if (funcItem.ParamsName[index] == $scope.functionForIndicators) {
+                        minMarks = funcItem.MinMarks[index]
+                    }
+                })
+            })
+            var params = program.params;
+            var countOfCorrectParams = 0;
+            var sumParValue = 0;
+            var sumMinNorm = 0;
+            angular.forEach(params, function (par, index) {
+                sumParValue += parseInt(par.value);
+                sumMinNorm += minMarks[index];
+            })
+            console.log(sumParValue, sumMinNorm)
+            var coef = (sumParValue / sumMinNorm) * 100;
+            if (isNaN(coef)) coef = 0;
+            program.state = (coef > 100) ? 100 + "%" : coef + "%";
+            if (sumParValue > sumMinNorm) {
+                program.status = statuses[0]; //success
+                //Math.random() * 10;
+            } else if (sumParValue / sumMinNorm <- 0.5 * sumMinNorm / 3) { //todo
+                program.status = statuses[1]; //warning
+                
+            } else {
+                program.status = statuses[2]; //danger
+
+            }
+            tryApply();
+
+        })
+
+    }
+
+    function setCanvas(program, index) {
+
+        var norm = [];
+        angular.forEach($scope.graphFunctions, function (funcItem) {
+            angular.forEach(funcItem.MarksFunc, function (markItem, index) {
+                if (funcItem.ParamsName[index] == $scope.functionForIndicators) {
+                    norm = funcItem.MinMarks[index]
+                }
+            })
+        })
+        //console.log(norm, program.params, $scope.functionForIndicators)
+
+        //        //var norm =[100000, 30000, 30000];
+        //        program.params.forEach(function(param, index_) {
+        //            //console.log(Math.max(param.value, norm[index_]));
+        //            maxes_.push(Math.max(param.value, norm[index_]));
+        //        })
+        var facts = program.params.map(function (item) {
+            return item.value;
+        })
+        var dataSets = normalise(norm, facts);
+        var legends = [];
+        //console.log(program.params)
+        try {
+            legends = [program.params[0]['key'], program.params[1]['key'], program.params[2]['key']]
+        } catch (ex) {
+            legends = ['test']
+        }
+
+
+        var dataset = [{
+            label: "Фактически",
+            backgroundColor: "rgba(255,0,0,0.2)",
+            data: dataSets.dataFact
+        }, {
+            label: 'Минимум',
+            backgroundColor: "rgba(0,0,255,0.2)",
+            data: dataSets.dataNormal
+        }];
+        //console.log(dataset);
+        setTimeout(function () {
+            drawRadar(index, dataset, legends);
+        }, 1500);
+    }
+
+    $scope.setCanvas = function (program_, index) {
+        setCanvas(program_, index);
+    }
+
+    function tryApply() {
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
     }
 
     function getStudentsCompleated() {
@@ -236,7 +369,7 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
                 }
             });
         });
-        if(countSuccessModules==0 || countUsableModules) return 0;
+        if (countSuccessModules == 0 || countUsableModules) return 0;
         console.log(countSuccessModules / countUsableModules);
         return countSuccessModules / countUsableModules;
     };
@@ -246,8 +379,11 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
         $location.path('program');
     }
 
-    
-     function drawRadar(index, dataset, label) {
+    var tmp = [];
+
+    function drawRadar(index, dataset, label) {
+        // $('#chart' + index).remove(); // this is my <canvas> element
+        // $('#grphContainer').append('<canvas id=\"chart' + index +'\" style=\"max-width: 600px; max-height: 600px\"><canvas>');
         var ctx = document.getElementById('chart' + index);
         var radar = new Chart(ctx, {
             type: 'radar',
@@ -256,13 +392,20 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
                 datasets: dataset
             }
         });
+        tmp.push(radar);
+
     };
 
-    /*$scope.drawCanvas = function (program, index) {
-        setTimeout(function () {
-            drawRadar(index);
-        }, 1500);
-    }*/
+    function drawCanvas() {
+
+        angular.forEach($scope.programs, function (program, index) {
+            //console.log("Draw program:", program)
+            setCanvas(program, index);
+        })
+    }
+
+
+
 
 
 
@@ -318,7 +461,7 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
     //     //chart.draw(data, options);
     // }
 
-   
+
 
     // function translate(text) {
     //     var trans = new Trans.Trans({
