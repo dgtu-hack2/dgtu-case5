@@ -75,7 +75,6 @@ myApp.config(function ($routeProvider) {
             templateUrl: 'competitions/competitions.html',
             controller: 'CompsCtrl',
         })
-
         .when('/analyseProgram', {
             templateUrl: 'analyseProgram/analyseProgram.html',
             controller: 'AnalyseProgCtrl',

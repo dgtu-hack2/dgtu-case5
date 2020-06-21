@@ -175,13 +175,12 @@ app.post("/api/executePython", jsonParser, function (req, res) {
     // collect data from script
     python.stdout.on('data', function (data) {
         dataToSend = data.toString();
-
     });
-    // in close event we are sure that stream from child process is closed
+    // // in close event we are sure that stream from child process is closed
     python.on('close', (code) => {
         console.log(`child process close all stdio with code ${code}`);
         // send data to browser
-        res.send(dataToSend)
+        res.send(dataToSend);
     });
 });
 

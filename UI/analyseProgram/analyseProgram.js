@@ -16,9 +16,8 @@ analyseProgram.controller('AnalyseProgCtrl', function ($scope, analyseService, $
 
             $scope.isLoading = true;
             analyseService.compareTo(url).then(function (response) {
-                console.log(response);
                 if (!response) {
-                    alert('no response');
+                    alert('На нашем сервере возникли временные неполадки. Уже исправляем :)');
                 }
 
                 $scope.isLoading = false;
@@ -26,13 +25,12 @@ analyseProgram.controller('AnalyseProgCtrl', function ($scope, analyseService, $
                 var differ = 100 - similar;
 
                 var ctx = document.getElementById('compareResult');
-                console.log(ctx);
                 var pie = new Chart(ctx, {
                     type: 'pie',
                     data: {
-                        labels: ['Отличия', 'Схожесть'],
+                        labels: ['Различия', 'Совпадения'],
                         datasets: [{
-                            data: [differ, similar],
+                            data: [differ.toFixed(2), similar.toFixed(2)],
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.5)',
                                 'rgba(54, 162, 235, 0.2)'
