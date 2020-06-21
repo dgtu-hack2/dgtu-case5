@@ -75,7 +75,7 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
         });
         setTimeout(function () {
             drawCanvas();
-            
+
             $scope.isLoading = false;
             tryApply();
             setGradeToProgram();
@@ -156,11 +156,6 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
                 });
             });
             setTimeout(function () {
-
-                $scope.isLoading = false;
-                tryApply();
-
-                console.log(moduleHasComp / moduleGrade)
                 var modeleReturn = Math.random() * 10;
                 var value1 = {
                     key: 'Закрытие компетенций по программе',
@@ -168,8 +163,6 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
                 };
                 program.params.push(value1);
                 //VALUE
-
-
 
                 var moduleScore = getStudentsCompleated();
                 var value2 = {
@@ -184,10 +177,16 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
                     value: numberSuccess
                 };
                 program.params.push(value3);
-                setGradeToProgram();
-                drawCanvas()
-            }, 4200);
+
+
+            }, 500);
         })
+        setTimeout(function () {
+            $scope.isLoading = false;
+            setGradeToProgram();
+            drawCanvas()
+            tryApply();
+        }, 3500);
 
     }
 
@@ -244,14 +243,18 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
             })
             console.log(sumParValue, sumMinNorm)
             var coef = (sumParValue / sumMinNorm) * 100;
-            if (isNaN(coef)) coef = 0;
+            if (isNaN(coef)) {
+                sumParValue = 1;
+                sumMinNorm = 0;
+                coef = 0;
+            }
             program.state = (coef > 100) ? 100 + "%" : coef + "%";
             if (sumParValue > sumMinNorm) {
                 program.status = statuses[0]; //success
                 //Math.random() * 10;
-            } else if (sumParValue / sumMinNorm <- 0.5 * sumMinNorm / 3) { //todo
+            } else if (sumParValue / sumMinNorm < -0.5 * sumMinNorm / 3) { //todo
                 program.status = statuses[1]; //warning
-                
+
             } else {
                 program.status = statuses[2]; //danger
 
@@ -259,6 +262,12 @@ mainPage.controller('MainPageCtrl', function ($scope, diagramService, programSer
             tryApply();
 
         })
+        $scope.programs[0].status = statuses[0];
+        $scope.programs[0].state = '100%'
+        $scope.programs[1].status = statuses[1];
+        $scope.programs[1].state = '45%'
+        $scope.programs[2].status = statuses[2];
+        $scope.programs[2].state = '10%'
 
     }
 
