@@ -32,12 +32,10 @@ grade.controller('GradeCtrl', function ($scope, userService, programService, $lo
     }
 
     $scope.getProgramName = function(programId) {
-        angular.forEach(programs, function(program) {
-            if (program.Code === programId) {
-                return program.ProgName;
-            }
-        });
+        var desiredProgram = Object.fromEntries(Object.entries(programs).filter( function(program) {
+            return program.Code === programId;
+        }));
 
-        return programId;
+        return desiredProgram && desiredProgram.ProgName || programId;
     };
 });
