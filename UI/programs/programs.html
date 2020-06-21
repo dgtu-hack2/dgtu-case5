@@ -23,7 +23,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="(id, program) in programs | filter:searchValue">
+                                <tr ng-repeat="(id, program) in programs | filter:{ProgName: searchValue}">
                                     <td>{{program.ProgName}}</td>
                                     <td>{{program.Code}}</td>
                                     <td><button ng-click="lookProgram(program)" class="btn btn-success" style="margin-left: 5px;" type="submit"><i class="fa fa-check" style="font-size: 15px;"></i></button></td>
